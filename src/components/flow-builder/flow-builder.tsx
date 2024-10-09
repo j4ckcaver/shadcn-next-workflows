@@ -143,7 +143,7 @@ export const FlowBuilder = () => {
         className={cn(
           "pointer-events-none absolute inset-0 backdrop-blur-5 transition-all",
           isBuilderBlurred &&
-            "opacity-100 bg-zinc-500/30 backdrop-saturate-50 pointer-events-auto",
+            "opacity-100 bg-background/30 backdrop-saturate-50 pointer-events-auto",
           !isBuilderBlurred &&
             "opacity-0 bg-zinc-800/0 backdrop-saturate-100 pointer-events-none"
         )}
