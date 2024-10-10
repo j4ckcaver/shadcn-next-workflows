@@ -14,7 +14,7 @@ export interface RegisterNodeMetadata<T = Record<string, unknown>> {
   type: BuilderNodeType;
   node: ComponentType<any>;
   detail: {
-    icon: keyof typeof icons;
+    icon: string;
     title: string;
     description: string;
   };

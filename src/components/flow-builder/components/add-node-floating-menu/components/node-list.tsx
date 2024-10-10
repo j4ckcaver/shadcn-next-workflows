@@ -1,10 +1,6 @@
-import {
-  AVAILABLE_NODES,
-  NODES_METADATA,
-} from "@/components/flow-builder/nodes";
-import { BuilderNodeType } from "@/components/flow-builder/nodes/types";
-import Icon from "@/components/ui/lucide-icon";
-import { icons } from "lucide-react";
+import { BuilderNodeType } from "../../blocks/types";
+import { AVAILABLE_NODES, NODES_METADATA } from "../../blocks";
+import { Icon } from "@iconify/react";
 
 type NodeListProps = Readonly<{
   nodes: Array<
@@ -27,16 +23,15 @@ export default function NodeList({ nodes, onNodeAdd }: NodeListProps) {
           type="button"
           disabled={!node.__enabled}
           key={node.type}
-          className="flex items-center rounded-xl bg-transparent p-1 transition disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-20 active:bg-zinc-700/40 hover:bg-zinc-700"
+          className="flex items-center rounded-xl bg-transparent p-1 transition disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-20 active:bg-card-foreground/10 hover:bg-card-foreground/10"
         >
-          <div className="size-7 flex shrink-0 items-center justify-center border border-zinc-600/60 rounded-lg bg-zinc-700">
-            <Icon
-              name={node.icon as keyof typeof icons}
-              className={"size-4 text-white"}
-            />
+          <div className="size-7 flex shrink-0 items-center justify-center border border-card-foreground/10 rounded-lg bg-card">
+            <Icon icon={node.icon} className={"size-4 text-card-foreground"} />
           </div>
 
-          <div className="ml-2 text-sm text-zinc-400">{node.title}</div>
+          <div className="ml-2 text-sm text-card-foreground/80">
+            {node.title}
+          </div>
         </button>
       ))}
     </div>

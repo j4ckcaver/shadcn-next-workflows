@@ -1,6 +1,6 @@
-import { MessageChannelDetails } from "@/components/flow-builder/nodes/nodes/text-message-node/constants/channels";
-import { TextMessageNodeData } from "@/components/flow-builder/nodes/nodes/text-message-node/text-message.node";
-import { BuilderNodeType } from "@/components/flow-builder/nodes/types";
+import { MessageChannelDetails } from "@/components/flow-builder/components/blocks/nodes/text-message-node/constants/channels";
+import { TextMessageNodeData } from "@/components/flow-builder/components/blocks/nodes/text-message-node/text-message.node";
+import { BuilderNodeType } from "@/components/flow-builder/components/blocks/types";
 import {
   DropdownMenu,
   DropdownMenuContent,

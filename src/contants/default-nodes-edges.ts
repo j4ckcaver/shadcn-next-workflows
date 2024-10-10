@@ -1,5 +1,5 @@
-import { BuilderNode } from "@/components/flow-builder/nodes/types";
-import { createNodeWithDefaultData } from "@/components/flow-builder/nodes/utils";
+import { BuilderNode } from "@/components/flow-builder/components/blocks/types";
+import { createNodeWithDefaultData } from "@/components/flow-builder/components/blocks/utils";
 import { nanoid } from "nanoid";
 
 const startNode = createNodeWithDefaultData(BuilderNode.START, {

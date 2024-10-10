@@ -3,9 +3,8 @@ import { nanoid } from "nanoid";
 import { memo, useMemo, useState } from "react";
 import { BaseNodeData, BuilderNode, RegisterNodeMetadata } from "../types";
 import { getNodeDetail } from "../utils";
-import CustomHandle from "../../components/handles/custom-handler";
-import Icon from "@/components/ui/lucide-icon";
-import { icons } from "lucide-react";
+import CustomHandle from "../../handles/custom-handler";
+import { Icon } from "@iconify/react";
 
 export interface StartNodeData extends BaseNodeData {
   label?: string;
@@ -26,10 +25,7 @@ export function StartNode({ data, selected, isConnectable }: StartNodeProps) {
         data-selected={selected}
         className="flex items-center text-foreground border border-card-foreground/10 rounded-full bg-card px-4 py-2 shadow-sm transition data-[selected=true]:border-primary"
       >
-        <Icon
-          name={meta.icon as keyof typeof icons}
-          className={"size-4 shrink-0 mr-2 scale-130"}
-        />
+        <Icon icon={meta.icon} className={"size-4 shrink-0 mr-2 scale-130"} />
 
         <span className="mr-1">{data.label || meta.title}</span>
       </div>
@@ -48,7 +44,7 @@ export const metadata: RegisterNodeMetadata<StartNodeData> = {
   type: NODE_TYPE,
   node: memo(StartNode),
   detail: {
-    icon: "Play",
+    icon: "solar:play-bold",
     title: "Start",
     description: "Start the chatbot flow",
   },

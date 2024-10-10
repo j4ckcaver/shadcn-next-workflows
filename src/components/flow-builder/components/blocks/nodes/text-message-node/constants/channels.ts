@@ -17,10 +17,13 @@ export const MessageChannelDetails: Record<
   MessageChannelType,
   MessageChannelDetail
 > = {
-  [MessageChannel.SMS]: { name: "SMS", icon: "Play" },
-  [MessageChannel.WHATSAPP]: { name: "WhatsApp", icon: "Play" },
-  [MessageChannel.MESSENGER]: { name: "Messenger", icon: "Play" },
-  [MessageChannel.TELEGRAM]: { name: "Telegram", icon: "Play" },
+  [MessageChannel.SMS]: { name: "SMS", icon: "fa6-solid:comment-sms" },
+  [MessageChannel.WHATSAPP]: { name: "WhatsApp", icon: "ri:whatsapp-fill" },
+  [MessageChannel.MESSENGER]: { name: "Messenger", icon: "fontisto:messenger" },
+  [MessageChannel.TELEGRAM]: {
+    name: "Telegram",
+    icon: "akar-icons:telegram-fill",
+  },
 };
 
 export function getMessageChannelDetails(channel: MessageChannelType) {

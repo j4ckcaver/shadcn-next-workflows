@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-
+import { Icon } from "@iconify/react";
 type MessageChannelSelectorProps = Readonly<{
   detail: MessageChannelDetail;
   onSelect: (
@@ -30,9 +30,11 @@ export function MessageChannelSelector({
           type="button"
           className="h-7 flex items-center justify-center border border-transparent rounded-lg bg-transparent px-1.2 outline-none transition active:(border-dark-200 bg-dark-400/50) data-[state=open]:(border-dark-200 bg-dark-500) data-[state=closed]:(hover:bg-dark-100)"
         >
-          <div className={cn(detail.icon, "size-4")} />
-
-          <div className="i-lucide:chevrons-up-down ml-1 size-3 op-50" />
+          <Icon icon={detail.icon} className={"size-4 text-card-foreground"} />
+          <Icon
+            icon={"lucide:chevrons-up-down"}
+            className={"ml-1 size-3 text-card-foreground opacity-50"}
+          />
         </button>
       </DropdownMenuTrigger>
 
@@ -50,7 +52,7 @@ export function MessageChannelSelector({
             onSelect={() => onSelect({ ...v, type: k })}
           >
             <div className="flex items-center gap-x-2">
-              <div className={cn(v.icon, "size-4")} />
+              <Icon icon={v.icon} className={"size-4 text-card-foreground"} />
 
               <div className="text-xs font-medium leading-none tracking-wide">
                 {v.name}

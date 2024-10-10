@@ -3,10 +3,8 @@ import { nanoid } from "nanoid";
 import { memo, useMemo, useState } from "react";
 import { BaseNodeData, BuilderNode, RegisterNodeMetadata } from "../types";
 import { getNodeDetail } from "../utils";
-import CustomHandle from "../../components/handles/custom-handler";
-import { cn } from "@/lib/utils";
-import Icon from "@/components/ui/lucide-icon";
-import { icons } from "lucide-react";
+import CustomHandle from "../../handles/custom-handler";
+import { Icon } from "@iconify/react";
 
 export interface EndNodeData extends BaseNodeData {
   label?: string;
@@ -28,10 +26,7 @@ export function EndNode({ data, selected, isConnectable }: EndNodeProps) {
         data-deletable={false}
         className="flex items-center text-foreground border border-card-foreground/10 rounded-full bg-card px-4 py-2 shadow-sm transition data-[selected=true]:border-primary"
       >
-        <Icon
-          name={meta.icon as keyof typeof icons}
-          className={"size-4 shrink-0 mr-2 scale-130"}
-        />
+        <Icon icon={meta.icon} className={"size-4 shrink-0 mr-2 scale-130"} />
 
         <span className="mr-1">{data.label || meta.title}</span>
       </div>
@@ -50,7 +45,7 @@ export const metadata: RegisterNodeMetadata<EndNodeData> = {
   type: NODE_TYPE,
   node: memo(EndNode),
   detail: {
-    icon: "Square",
+    icon: "solar:stop-bold",
     title: "End",
     description: "End the chatbot flow",
   },

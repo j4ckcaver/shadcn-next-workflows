@@ -14,7 +14,6 @@ import {
   useNodesState,
   useReactFlow,
 } from "@xyflow/react";
-import { NODE_TYPES } from "./nodes";
 import { defaultEdges, defaultNodes } from "@/contants/default-nodes-edges";
 import { useCallback } from "react";
 import { useDeleteKeyCode } from "@/hooks/use-delete-key-code";
@@ -31,6 +30,7 @@ import { cn } from "@/lib/utils";
 import AddNodeFloatingMenu from "./components/add-node-floating-menu/add-node-floating-menu";
 import { useFlowStore } from "@/stores/flow-store";
 import { useShallow } from "zustand/shallow";
+import { NODE_TYPES } from "./components/blocks";
 
 const edgeTypes: EdgeTypes = {
   deletable: CustomDeletableEdge,

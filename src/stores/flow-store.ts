@@ -1,4 +1,4 @@
-import { BuilderNodeType } from "@/components/flow-builder/nodes/types";
+import { BuilderNodeType } from "@/components/flow-builder/components/blocks/types";
 import { create } from "zustand";
 
 interface State {

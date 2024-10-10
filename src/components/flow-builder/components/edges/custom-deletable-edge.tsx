@@ -35,7 +35,7 @@ export default function CustomDeletableEdge(props: EdgeProps) {
       <EdgeLabelRenderer>
         <button
           type="button"
-          className="group pointer-events-auto absolute size-5 flex items-center justify-center rounded-full bg-zinc-900 text-red-300 transition-colors  hover:bg-zinc-800 )"
+          className="group pointer-events-auto absolute size-5 flex items-center justify-center rounded-full bg-card text-red-400 transition-colors  hover:bg-card-foreground/10"
           style={{
             transform: `translate(${labelX}px, ${labelY}px) translate(-50%, -50%)`,
           }}

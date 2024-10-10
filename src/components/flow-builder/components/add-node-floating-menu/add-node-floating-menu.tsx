@@ -1,7 +1,5 @@
 import { useCallback, useMemo } from "react";
-import { BuilderNode, BuilderNodeType } from "../../nodes/types";
 import { useAddNodeOnEdgeDropStore } from "@/stores/add-node-on-edge-drop-state";
-import { AVAILABLE_NODES, NODES_METADATA } from "../../nodes";
 import {
   Popover,
   PopoverContent,
@@ -9,6 +7,8 @@ import {
 } from "@/components/ui/popover";
 import NodeList from "./components/node-list";
 import { useShallow } from "zustand/shallow";
+import { BuilderNode, BuilderNodeType } from "../blocks/types";
+import { AVAILABLE_NODES, NODES_METADATA } from "../blocks";
 
 type AddNodeFloatingMenuProps = Readonly<{
   onNodeAdd: (type: BuilderNodeType) => void;
@@ -87,7 +87,7 @@ export default function AddNodeFloatingMenu({
     <Popover open={showMenu}>
       <PopoverTrigger asChild>
         <div
-          className="left absolute size-0 bg-zinc-800"
+          className="left absolute size-0 bg-card"
           style={{
             left: `${anchorPosition.x}px`,
             top: `${anchorPosition.y}px`,
@@ -95,7 +95,7 @@ export default function AddNodeFloatingMenu({
         />
       </PopoverTrigger>
       <PopoverContent
-        className="isolate p-0 w-fit z-10 transform-origin-[var(--radix-popover-content-transform-origin)] data-[state=closed]:animate-out data-[state=closed]:fade-out  data-[state=open]:animate-in animate-duration-200 select-none overflow-clip border border-zinc-700 rounded-xl bg-zinc-800/40 shadow-2xl shadow-zinc-900/30 backdrop-blur-2xl"
+        className="isolate p-0 w-fit z-10 transform-origin-[var(--radix-popover-content-transform-origin)] data-[state=closed]:animate-out data-[state=closed]:fade-out  data-[state=open]:animate-in animate-duration-200 select-none overflow-clip border border-card-foreground/10 rounded-xl bg-card/40 shadow-2xl shadow-card/30 backdrop-blur-2xl"
         side="bottom"
         align="start"
         tabIndex={-1}
@@ -110,7 +110,7 @@ export default function AddNodeFloatingMenu({
             onNodeAdd={handleOnNodeAdd}
           />
 
-          <div className="my-0.5 h-px bg-zinc-700" />
+          <div className="my-0.5 h-px bg-card-foreground/10" />
 
           <NodeList
             nodes={nodesWithMetadata.additionalNodes}

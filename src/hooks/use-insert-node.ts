@@ -1,5 +1,5 @@
-import { BuilderNodeType } from "@/components/flow-builder/nodes/types";
-import { createNodeWithDefaultData } from "@/components/flow-builder/nodes/utils";
+import { BuilderNodeType } from "@/components/flow-builder/components/blocks/types";
+import { createNodeWithDefaultData } from "@/components/flow-builder/components/blocks/utils";
 import { type XYPosition, useReactFlow } from "@xyflow/react";
 import { useCallback } from "react";
 
