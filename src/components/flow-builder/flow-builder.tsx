@@ -38,6 +38,7 @@ const edgeTypes: EdgeTypes = {
 
 export const FlowBuilder = () => {
   const [nodes, _, onNodesChange] = useNodesState<Node>(defaultNodes);
+
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>(defaultEdges);
   const { getNodes } = useReactFlow();
   const [isBuilderBlurred] = useFlowStore(
