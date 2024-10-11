@@ -1,12 +1,15 @@
 import { MessageChannelDetails } from "@/components/flow-builder/components/blocks/nodes/text-message-node/constants/channels";
 import { TextMessageNodeData } from "@/components/flow-builder/components/blocks/nodes/text-message-node/text-message.node";
 import { BuilderNodeType } from "@/components/flow-builder/components/blocks/types";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { listify } from "radash";
@@ -36,11 +39,11 @@ export default function TextMessageNodePropertyPanel({
         </div>
 
         <div className="mt-2 flex">
-          <input
+          <Input
             type="text"
             value={id}
             readOnly
-            className="h-8 w-full border border-card-foreground/10 rounded-md bg-card px-2.5 text-sm font-medium shadow-sm outline-none transition hover:bg-card-foreground/60 read-only:text-card-foreground/80 read-only:opacity-80 read-only:hover:bg-card/30"
+            className="h-8 w-full read-only:opacity-80 read-only:hover:bg-card/30"
           />
         </div>
       </div>
@@ -53,9 +56,10 @@ export default function TextMessageNodePropertyPanel({
         <div className="mt-2 flex">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button
+              <Button
                 type="button"
-                className="h-8 w-full flex items-center justify-between border border-card-foreground/10 rounded-md bg-card px-2.5 shadow-sm outline-none transition active:border-card active:bg-card/50 data-[state=open]:border-card data-[state=open]:bg-card data-[state=closed]:hover:bg-card/60"
+                variant={"outline"}
+                className="h-8 w-full flex items-center justify-between "
               >
                 <div className="flex items-center">
                   <Icon
@@ -72,15 +76,14 @@ export default function TextMessageNodePropertyPanel({
                   icon="lucide:chevrons-up-down"
                   className="ml-1 size-3 opacity-50"
                 />
-              </button>
+              </Button>
             </DropdownMenuTrigger>
 
             <DropdownMenuContent
               sideOffset={5}
-              align="start"
+              align="center"
               className={cn(
-                "[width:var(--radix-popper-anchor-width)] select-none border border-card-foreground/10 rounded-lg bg-card/90 p-0.5 text-cardshadow-xl backdrop-blur-lg transition",
-                "animate-in data-[side=top]:slide-in-bottom-0.5 data-[side=bottom]:slide-in-bottom--0.5 data-[side=bottom]:fade-in-40 data-[side=top]:fade-in-40"
+                "[width:var(--radix-popper-anchor-width)] select-none "
               )}
             >
               {listify(MessageChannelDetails, (k, v) => (
@@ -109,11 +112,11 @@ export default function TextMessageNodePropertyPanel({
         </div>
 
         <div className="mt-2 flex">
-          <textarea
+          <Textarea
             value={data.message}
             onChange={(e) => updateData({ message: e.target.value })}
             placeholder="Type your message here..."
-            className="min-h-32 w-full resize-none border border-card-foreground/10 rounded-md bg-card px-2.5 py-2 text-sm font-medium shadow-sm outline-none transition focus:border-primary focus:bg-card focus:ring-2 focus:ring-primary/50 hover:bg-card/60 placeholder:text-card/50  placeholder:italic read-only:text-card/80"
+            className="min-h-32 w-full resize-none "
           />
         </div>
       </div>

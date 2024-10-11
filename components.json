@@ -12,6 +12,8 @@
   },
   "aliases": {
     "components": "@/components",
+    "blocks": "@/components/flow-builder/components/blocks",
+    "flow-builder-ui": "@/components/flow-builder/components/ui",
     "utils": "@/lib/utils",
     "ui": "@/components/ui",
     "lib": "@/lib",

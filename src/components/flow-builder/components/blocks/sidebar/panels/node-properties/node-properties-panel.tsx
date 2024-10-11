@@ -11,6 +11,7 @@ import { NodePropertyPanel } from "./components/node-propery-panel";
 import IntroductionPropertyPanel from "./property-panels/introduction-property-panel";
 import { Icon } from "@iconify/react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { HeaderWithIcon } from "@/components/flow-builder/components/ui/header-with-icon";
 
 export function NodePropertiesPanel() {
   const selectedNode = useFlowStore(
@@ -50,8 +51,7 @@ export function NodePropertiesPanel() {
     <SidebarPanelWrapper>
       <div className="h-full w-80 flex flex-col">
         <SidebarPanelHeading className="shrink-0">
-          <Icon icon="mynaui:layers-three" className="size-4" />
-          Nodes in Flow
+          <HeaderWithIcon icon="mynaui:layers-three" title="Nodes in Flow" />
         </SidebarPanelHeading>
 
         <ScrollArea className="h-[200px] w-full  ">
@@ -80,8 +80,7 @@ export function NodePropertiesPanel() {
 
       <div className="h-full w-80 flex flex-col">
         <SidebarPanelHeading className="shrink-0">
-          <Icon icon={"mynaui:cog"} className="size-4" />
-          Properties
+          <HeaderWithIcon icon="mynaui:cog" title="Node Properties" />
         </SidebarPanelHeading>
 
         <ScrollArea className="h-[400px] w-full">

@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { ComponentPropsWithoutRef } from "react";
 
@@ -14,20 +15,18 @@ export default function SidebarButtonItem({
   ...props
 }: SidebarButtonItemProps) {
   return (
-    <button
+    <Button
+      size={"icon"}
       type="button"
+      variant={active ? "default" : "ghost"}
       className={cn(
-        "size-8 flex items-center justify-center rounded-lg border border-transparent outline-none transition",
-
-        active
-          ? "border-primary bg-primary"
-          : "bg-transparent hover:bg-card-foreground/20 active:bg-card active:border-card",
+        "size-8 flex items-center justify-center",
 
         className
       )}
       {...props}
     >
       {children}
-    </button>
+    </Button>
   );
 }
