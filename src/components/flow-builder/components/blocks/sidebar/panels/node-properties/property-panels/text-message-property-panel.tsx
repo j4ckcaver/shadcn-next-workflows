@@ -8,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
+import { Icon } from "@iconify/react/dist/iconify.js";
 import { listify } from "radash";
 import { useMemo } from "react";
 
@@ -30,7 +31,7 @@ export default function TextMessageNodePropertyPanel({
   return (
     <div className="flex flex-col gap-4.5 p-4">
       <div className="flex flex-col">
-        <div className="text-xs text-light-900/60 font-semibold">
+        <div className="text-xs text-card-foreground/60 font-semibold">
           Unique Identifier
         </div>
 
@@ -39,24 +40,27 @@ export default function TextMessageNodePropertyPanel({
             type="text"
             value={id}
             readOnly
-            className="h-8 w-full border border-dark-200 rounded-md bg-dark-400 px-2.5 text-sm font-medium shadow-sm outline-none transition hover:(bg-dark-300/60) read-only:(text-light-900/80 op-80 hover:bg-dark-300/30)"
+            className="h-8 w-full border border-card-foreground/10 rounded-md bg-card px-2.5 text-sm font-medium shadow-sm outline-none transition hover:bg-card-foreground/60 read-only:text-card-foreground/80 read-only:opacity-80 read-only:hover:bg-card/30"
           />
         </div>
       </div>
 
-      <div className="flex flex-col">
-        <div className="text-xs text-light-900/60 font-semibold">Channel</div>
+      <div className="flex my-3  flex-col">
+        <div className="text-xs text-card-foreground/60 font-semibold">
+          Channel
+        </div>
 
         <div className="mt-2 flex">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button
                 type="button"
-                className="h-8 w-full flex items-center justify-between border border-dark-200 rounded-md bg-dark-400 px-2.5 shadow-sm outline-none transition active:(border-dark-200 bg-dark-400/50) data-[state=open]:(border-dark-200 bg-dark-500) data-[state=closed]:(hover:bg-dark-300/60)"
+                className="h-8 w-full flex items-center justify-between border border-card-foreground/10 rounded-md bg-card px-2.5 shadow-sm outline-none transition active:border-card active:bg-card/50 data-[state=open]:border-card data-[state=open]:bg-card data-[state=closed]:hover:bg-card/60"
               >
                 <div className="flex items-center">
-                  <div
-                    className={cn(currentMessageChannelDetail.icon, "size-4")}
+                  <Icon
+                    icon={currentMessageChannelDetail.icon}
+                    className="size-4"
                   />
 
                   <div className="ml-2 text-sm font-medium leading-none tracking-wide">
@@ -64,7 +68,10 @@ export default function TextMessageNodePropertyPanel({
                   </div>
                 </div>
 
-                <div className="i-lucide:chevrons-up-down ml-1 size-3 op-50" />
+                <Icon
+                  icon="lucide:chevrons-up-down"
+                  className="ml-1 size-3 opacity-50"
+                />
               </button>
             </DropdownMenuTrigger>
 
@@ -72,18 +79,18 @@ export default function TextMessageNodePropertyPanel({
               sideOffset={5}
               align="start"
               className={cn(
-                "[width:var(--radix-popper-anchor-width)] select-none border border-dark-100 rounded-lg bg-dark-200/90 p-0.5 text-light-50 shadow-xl backdrop-blur-lg transition",
+                "[width:var(--radix-popper-anchor-width)] select-none border border-card-foreground/10 rounded-lg bg-card/90 p-0.5 text-cardshadow-xl backdrop-blur-lg transition",
                 "animate-in data-[side=top]:slide-in-bottom-0.5 data-[side=bottom]:slide-in-bottom--0.5 data-[side=bottom]:fade-in-40 data-[side=top]:fade-in-40"
               )}
             >
               {listify(MessageChannelDetails, (k, v) => (
                 <DropdownMenuItem
                   key={k}
-                  className="cursor-pointer border border-transparent rounded-lg p-1.5 outline-none transition active:(border-dark-100 bg-dark-300/60) hover:bg-dark-100"
+                  className="cursor-pointer border border-transparent rounded-lg p-1.5 outline-none transition active:(border-card bg-card/60) hover:bg-card"
                   onSelect={() => updateData({ channel: k })}
                 >
                   <div className="flex items-center gap-x-2">
-                    <div className={cn(v.icon, "size-4")} />
+                    <Icon icon={v.icon} className="size-4" />
 
                     <div className="text-xs font-medium leading-none tracking-wide">
                       {v.name}
@@ -97,14 +104,16 @@ export default function TextMessageNodePropertyPanel({
       </div>
 
       <div className="flex flex-col">
-        <div className="text-xs text-light-900/60 font-semibold">Message</div>
+        <div className="text-xs text-card-foreground/60 font-semibold">
+          Message
+        </div>
 
         <div className="mt-2 flex">
           <textarea
             value={data.message}
             onChange={(e) => updateData({ message: e.target.value })}
             placeholder="Type your message here..."
-            className="min-h-30 w-full resize-none border border-dark-200 rounded-md bg-dark-400 px-2.5 py-2 text-sm font-medium shadow-sm outline-none transition focus:(border-teal-800 bg-dark-500 ring-2 ring-teal-800/50) hover:(bg-dark-300/60) placeholder:(text-light-900/50  italic) read-only:(text-light-900/80)"
+            className="min-h-32 w-full resize-none border border-card-foreground/10 rounded-md bg-card px-2.5 py-2 text-sm font-medium shadow-sm outline-none transition focus:border-primary focus:bg-card focus:ring-2 focus:ring-primary/50 hover:bg-card/60 placeholder:text-card/50  placeholder:italic read-only:text-card/80"
           />
         </div>
       </div>

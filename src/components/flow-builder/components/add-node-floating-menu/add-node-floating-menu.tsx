@@ -95,7 +95,7 @@ export default function AddNodeFloatingMenu({
         />
       </PopoverTrigger>
       <PopoverContent
-        className="isolate p-0 w-fit z-10 transform-origin-[var(--radix-popover-content-transform-origin)] data-[state=closed]:animate-out data-[state=closed]:fade-out  data-[state=open]:animate-in animate-duration-200 select-none overflow-clip border border-card-foreground/10 rounded-xl bg-card/40 shadow-2xl shadow-card/30 backdrop-blur-2xl"
+        className="isolate p-0 w-fit z-10 transform origin-[var(--radix-popover-content-transform-origin)] data-[state=closed]:animate-out data-[state=closed]:fade-out  data-[state=open]:animate-in animate-duration-200 select-none overflow-clip border border-card-foreground/10 rounded-xl bg-card/40 shadow-2xl shadow-card/30 backdrop-blur-2xl"
         side="bottom"
         align="start"
         tabIndex={-1}

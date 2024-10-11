@@ -1,8 +1,8 @@
 import { useReactFlow } from "@xyflow/react";
 import { type DragEvent, useCallback } from "react";
 import { useInsertNode } from "./use-insert-node";
-import { BuilderNode } from "@/components/flow-builder/nodes/types";
 import { NODE_TYPE_DRAG_DATA_FORMAT } from "@/contants/symbols";
+import { BuilderNode } from "@/components/flow-builder/components/blocks/types";
 
 export function useDragDropFlowBuilder() {
   const { screenToFlowPosition } = useReactFlow();

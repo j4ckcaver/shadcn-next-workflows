@@ -8,6 +8,7 @@ import { nanoid } from "nanoid";
 
 const startNode = createNodeWithDefaultData(BuilderNode.START, {
   position: { x: 0, y: 267 },
+  deletable: false,
 });
 const textMessageNode = createNodeWithData<TextMessageNodeData>(
   BuilderNode.TEXT_MESSAGE,

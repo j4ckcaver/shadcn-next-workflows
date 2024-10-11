@@ -1,5 +1,4 @@
 "use client";
-import { BuilderNodeType } from "@/components/flow-builder/nodes/types";
 import { useAddNodeOnEdgeDropStore } from "@/stores/add-node-on-edge-drop-state";
 import { type FinalConnectionState, useReactFlow } from "@xyflow/react";
 import { nanoid } from "nanoid";
@@ -7,6 +6,7 @@ import { useCallback, useEffect, useRef } from "react";
 import { useInsertNode } from "./use-insert-node";
 import { useFlowStore } from "@/stores/flow-store";
 import { useShallow } from "zustand/shallow";
+import { BuilderNodeType } from "@/components/flow-builder/components/blocks/types";
 
 export function useAddNodeOnEdgeDrop() {
   const [setBuilderBlur] = useFlowStore(

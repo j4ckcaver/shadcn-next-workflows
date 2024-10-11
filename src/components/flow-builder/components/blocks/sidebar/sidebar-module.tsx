@@ -1,24 +1,16 @@
-import { DesktopSidebarFragment } from "~/modules/sidebar/fragments/desktop-sidebar-fragment";
-import { MobileSidebarFragment } from "~/modules/sidebar/fragments/mobile-sidebar-fragment";
-import { useApplicationState } from "~/stores/application-state";
-
-import { Switch } from "~@/components/generics/switch-case";
+import { useFlowStore } from "@/stores/flow-store";
+import { useShallow } from "zustand/shallow";
+import { DesktopSidebarFragment } from "./fragments/desktop-sidebar-fragment";
 
 export function SidebarModule() {
-    const { isMobileView, activePanel, setActivePanel } = useApplicationState(s => ({
-        isMobileView: s.view.mobile,
-        activePanel: s.sidebar.active,
-        setActivePanel: s.actions.sidebar.setActivePanel,
-    }));
+  const [activePanel, setActivePanel] = useFlowStore(
+    useShallow((s) => [s.sidebar.active, s.actions.sidebar.setActivePanel])
+  );
 
-    return (
-        <Switch match={isMobileView}>
-            <Switch.Case value>
-                <MobileSidebarFragment activePanel={activePanel} setActivePanel={setActivePanel} />
-            </Switch.Case>
-            <Switch.Default>
-                <DesktopSidebarFragment isMobileView={isMobileView} activePanel={activePanel} setActivePanel={setActivePanel} />
-            </Switch.Default>
-        </Switch>
-    );
+  return (
+    <DesktopSidebarFragment
+      activePanel={activePanel}
+      setActivePanel={setActivePanel}
+    />
+  );
 }

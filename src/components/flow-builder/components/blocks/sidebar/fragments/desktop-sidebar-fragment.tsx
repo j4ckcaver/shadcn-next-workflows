@@ -1,44 +1,52 @@
 import { useEffect } from "react";
-
-import type { ApplicationState } from "~/stores/application-state";
-
-import SidebarButtonItem from "~/modules/sidebar/components/sidebar-button-item";
-import { SwitchSidebarPanel } from "~/modules/sidebar/components/sidebar-switch-panel";
+import { SwitchSidebarPanel } from "../components/sidebar-switch-panel";
+import SidebarButtonItem from "../components/sidebar-button-item";
+import { Icon } from "@iconify/react";
 
 type DesktopSidebarFragmentProps = Readonly<{
-    isMobileView: ApplicationState["view"]["mobile"];
-    activePanel: ApplicationState["sidebar"]["active"];
-    setActivePanel: (panel: ApplicationState["sidebar"]["active"]) => void;
+  activePanel: "node-properties" | "available-nodes" | "none";
+  setActivePanel: (
+    panel: "node-properties" | "available-nodes" | "none"
+  ) => void;
 }>;
 
-export function DesktopSidebarFragment({ isMobileView, activePanel, setActivePanel }: DesktopSidebarFragmentProps) {
-    useEffect(() => {
-        if (!isMobileView && activePanel === "none") {
-            setActivePanel("available-nodes");
-        }
-    }, [activePanel, setActivePanel, isMobileView]);
+export function DesktopSidebarFragment({
+  activePanel,
+  setActivePanel,
+}: DesktopSidebarFragmentProps) {
+  useEffect(() => {
+    if (activePanel === "none") {
+      setActivePanel("available-nodes");
+    }
+  }, [activePanel, setActivePanel]);
 
-    return (
-        <div className="relative max-w-sm w-fit flex shrink-0 divide-x divide-dark-300">
-            {activePanel !== "none" && (
-                <div className="min-w-xs grow bg-dark-500">
-                    <SwitchSidebarPanel active={activePanel} />
-                </div>
-            )}
-
-            <div className="shrink-0 bg-dark-400 p-1.5">
-                <div className="h-full flex flex-col gap-2">
-                    <SidebarButtonItem active={activePanel === "available-nodes"} onClick={() => setActivePanel("available-nodes")}>
-                        <div className="i-mynaui:grid size-5" />
-                    </SidebarButtonItem>
-
-                    <div className="mx-a h-px w-4 bg-dark-100" />
-
-                    <SidebarButtonItem active={activePanel === "node-properties"} onClick={() => setActivePanel("node-properties")}>
-                        <div className="i-mynaui:layers-three size-5" />
-                    </SidebarButtonItem>
-                </div>
-            </div>
+  return (
+    <div className="relative max-w-sm w-fit flex shrink-0 divide-x divide-card-foreground/10">
+      {activePanel !== "none" && (
+        <div className="min-w-xs grow bg-card">
+          <SwitchSidebarPanel active={activePanel} />
         </div>
-    );
+      )}
+
+      <div className="shrink-0 bg-card p-1.5">
+        <div className="h-full flex flex-col gap-2">
+          <SidebarButtonItem
+            active={activePanel === "available-nodes"}
+            onClick={() => setActivePanel("available-nodes")}
+          >
+            <Icon icon="mynaui:grid" className="size-5" />
+          </SidebarButtonItem>
+
+          <div className="mx-auto h-px w-4 bg-card-foreground/10" />
+
+          <SidebarButtonItem
+            active={activePanel === "node-properties"}
+            onClick={() => setActivePanel("node-properties")}
+          >
+            <Icon icon="mynaui:layers-three" className="size-5" />
+          </SidebarButtonItem>
+        </div>
+      </div>
+    </div>
+  );
 }

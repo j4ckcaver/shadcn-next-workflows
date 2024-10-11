@@ -7,12 +7,14 @@ export function useDeleteKeyCode(): KeyCode | null {
   useOnSelectionChange({
     onChange: ({ nodes }) => {
       if (nodes.length === 0) {
-        setDeleteKeyCode("Backspace");
+        setDeleteKeyCode(["Backspace", "Delete", "Del"]);
       } else {
         const areNodesNotDeletable = nodes.some(
           (node) => node.data.deletable === false
         );
-        setDeleteKeyCode(areNodesNotDeletable ? null : "Backspace");
+        setDeleteKeyCode(
+          areNodesNotDeletable ? null : ["Backspace", "Delete", "Del"]
+        );
       }
     },
   });

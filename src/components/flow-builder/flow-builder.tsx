@@ -2,19 +2,11 @@
 
 import {
   Background,
-  Connection,
-  type Edge,
   type EdgeTypes,
-  type Node,
   type NodeChange,
-  OnConnect,
   ReactFlow,
-  addEdge,
-  useEdgesState,
-  useNodesState,
   useReactFlow,
 } from "@xyflow/react";
-import { defaultEdges, defaultNodes } from "@/contants/default-nodes-edges";
 import { useCallback } from "react";
 import { useDeleteKeyCode } from "@/hooks/use-delete-key-code";
 import { useOnNodesDelete } from "@/hooks/use-on-nodes-delete";
@@ -23,8 +15,6 @@ import CustomDeletableEdge from "./components/edges/custom-deletable-edge";
 import { useAddNodeOnEdgeDrop } from "@/hooks/use-add-node-on-edge-drop";
 import { useDragDropFlowBuilder } from "@/hooks/use-drag-drop-flow-builder";
 import { useIsValidConnection } from "@/hooks/use-is-valid-connection";
-import "@xyflow/react/dist/style.css";
-import { nanoid } from "nanoid";
 import CustomControls from "./components/controls/custom-controls";
 import { cn } from "@/lib/utils";
 import AddNodeFloatingMenu from "./components/add-node-floating-menu/add-node-floating-menu";
@@ -37,9 +27,15 @@ const edgeTypes: EdgeTypes = {
 };
 
 export const FlowBuilder = () => {
-  const [nodes, _, onNodesChange] = useNodesState<Node>(defaultNodes);
-
-  const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>(defaultEdges);
+  const [nodes, edges, onNodesChange, onEdgesChange, onConnect] = useFlowStore(
+    useShallow((s) => [
+      s.nodes,
+      s.edges,
+      s.actions.nodes.onNodesChange,
+      s.actions.edges.onEdgesChange,
+      s.actions.edges.onConnect,
+    ])
+  );
   const { getNodes } = useReactFlow();
   const [isBuilderBlurred] = useFlowStore(
     useShallow((s) => [s.view.mobile, s.builder.blurred])
@@ -57,14 +53,6 @@ export const FlowBuilder = () => {
   const isValidConnection = useIsValidConnection(nodes, edges);
 
   const autoAdjustNode = useNodeAutoAdjust();
-
-  const onConnect: OnConnect = useCallback(
-    (connection: Connection) => {
-      const edge = { ...connection, id: nanoid(), type: "deletable" } as Edge;
-      setEdges((edges) => addEdge(edge, edges));
-    },
-    [setEdges]
-  );
 
   const handleAutoAdjustNodeAfterNodeMeasured = useCallback(
     (id: string) => {
@@ -87,8 +75,6 @@ export const FlowBuilder = () => {
 
   const handleNodesChange = useCallback(
     (changes: NodeChange[]) => {
-      onNodesChange(changes);
-
       changes.forEach((change) => {
         if (change.type === "dimensions") {
           const node = getNodes().find((n) => n.id === change.id);
@@ -101,6 +87,7 @@ export const FlowBuilder = () => {
           handleAutoAdjustNodeAfterNodeMeasured(change.item.id);
         }
       });
+      onNodesChange(changes);
     },
     [
       autoAdjustNode,
@@ -142,7 +129,7 @@ export const FlowBuilder = () => {
 
       <div
         className={cn(
-          "pointer-events-none absolute inset-0 backdrop-blur-5 transition-all",
+          "pointer-events-none absolute inset-0 backdrop-blur-3xl transition-all",
           isBuilderBlurred &&
             "opacity-100 bg-background/30 backdrop-saturate-50 pointer-events-auto",
           !isBuilderBlurred &&

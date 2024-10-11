@@ -1,10 +1,10 @@
-import type { ApplicationState } from "~/stores/application-state";
+import { PANEL_COMPONENTS } from "../constants/panels";
 
-import { PANEL_COMPONENTS } from "~/modules/sidebar/constants/panels";
-
-type SwitchSidebarPanelProps = Readonly<{ active: ApplicationState["sidebar"]["active"] }>;
+type SwitchSidebarPanelProps = Readonly<{
+  active: "node-properties" | "available-nodes" | "none";
+}>;
 
 export function SwitchSidebarPanel({ active }: SwitchSidebarPanelProps) {
-    const PanelComponent = PANEL_COMPONENTS[active];
-    return PanelComponent ? <PanelComponent /> : null;
+  const PanelComponent = PANEL_COMPONENTS[active];
+  return PanelComponent ? <PanelComponent /> : null;
 }
