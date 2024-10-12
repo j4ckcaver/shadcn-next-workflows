@@ -4,12 +4,7 @@ import { cn } from "@/lib/utils";
 import { HeaderWithIcon } from "./header-with-icon";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Button } from "@/components/ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { HeaderGradientColors } from "../blocks/types";
 
 const NodeCard = React.forwardRef<
   HTMLDivElement,
@@ -29,14 +24,34 @@ NodeCard.displayName = "NodeCard";
 interface NodeCardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   icon: string;
   title: string;
+  handleDeleteNode: () => void;
+  handleShowNodeProperties: () => void;
+  gradientColor?: keyof typeof HeaderGradientColors;
 }
 
 const NodeCardHeader = React.forwardRef<HTMLDivElement, NodeCardHeaderProps>(
-  ({ className, icon, title, ...props }, ref) => (
-    <div ref={ref} className={`relative bg-card/50 ${className}`} {...props}>
-      <TooltipProvider>
+  (
+    {
+      className,
+      icon,
+      title,
+      handleDeleteNode,
+      handleShowNodeProperties,
+      gradientColor,
+      ...props
+    },
+    ref
+  ) => {
+    const gradientColorClass =
+      HeaderGradientColors[gradientColor as keyof typeof HeaderGradientColors];
+    return (
+      <div ref={ref} className={`relative bg-card/50 ${className}`} {...props}>
         <div className="absolute inset-0">
-          <div className="absolute h-full w-3/5 from-primary/40 to-transparent bg-gradient-to-r" />
+          <div
+            className={`absolute h-full w-3/5 ${
+              gradientColor ? gradientColorClass : "from-primary/40"
+            } to-transparent bg-gradient-to-r`}
+          />
         </div>
 
         <div className="relative h-9 flex items-center justify-between gap-x-4 px-0.5 py-0.5">
@@ -57,35 +72,28 @@ const NodeCardHeader = React.forwardRef<HTMLDivElement, NodeCardHeaderProps>(
               size={"icon"}
               variant={"ghost"}
               className="size-7"
-              // onClick={() => showNodeProperties()}
+              onClick={handleShowNodeProperties}
             >
               <Icon icon={"mynaui:cog-solid"} className={"size-4"} />
             </Button>
 
-            <Tooltip>
-              <TooltipTrigger>
-                <Button
-                  type="button"
-                  variant={"ghost"}
-                  size={"icon"}
-                  className="size-7"
-                  // onClick={() => deleteNode(id)}
-                >
-                  <Icon
-                    icon={"basil:trash-solid"}
-                    className={"size-4 text-red-500"}
-                  />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Remove Node</p>
-              </TooltipContent>
-            </Tooltip>
+            <Button
+              type="button"
+              variant={"ghost"}
+              size={"icon"}
+              className="size-7"
+              onClick={handleDeleteNode}
+            >
+              <Icon
+                icon={"basil:trash-solid"}
+                className={"size-4 text-red-500"}
+              />
+            </Button>
           </div>
         </div>
-      </TooltipProvider>
-    </div>
-  )
+      </div>
+    );
+  }
 );
 NodeCardHeader.displayName = "NodeCardHeader";
 
