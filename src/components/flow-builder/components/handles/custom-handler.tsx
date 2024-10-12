@@ -56,7 +56,7 @@ export default function CustomHandle({
     <Handle
       className={cn(
         "hover:!ring-2 hover:ring-primary/50",
-        "!size-3 border-1.25 border-card-foreground/10 transition bg-card shadow-sm",
+        "!size-3 border-2 border-card-foreground/40 transition bg-card shadow-sm",
         className
       )}
       isConnectable={isHandleConnectable}
