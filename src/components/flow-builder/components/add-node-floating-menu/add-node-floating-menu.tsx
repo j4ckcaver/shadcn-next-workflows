@@ -70,6 +70,7 @@ export default function AddNodeFloatingMenu({
           title: meta.detail.title,
           icon: meta.detail.icon,
           description: meta.detail.description,
+          gradientColor: meta.detail.gradientColor,
           __meta: meta,
           __enabled: enabled,
         };

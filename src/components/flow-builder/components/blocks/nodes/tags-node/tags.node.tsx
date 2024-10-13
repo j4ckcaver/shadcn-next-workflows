@@ -8,7 +8,6 @@ import { getNodeDetail } from "../../utils";
 import { useFlowStore } from "@/stores/flow-store";
 import { useDeleteNode } from "@/hooks/use-delete-node";
 import CustomHandle from "@/components/flow-builder/components/handles/custom-handler";
-import TagsNodePropertyPanel from "../../sidebar/panels/node-properties/property-panels/text-message-property-panel";
 import { useShallow } from "zustand/shallow";
 import {
   NodeCard,
@@ -17,8 +16,8 @@ import {
   NodeCardFooter,
   NodeCardHeader,
 } from "@flow-builder-ui/node-card";
-import { TagsInput } from "@/components/ui/tags-input";
 import { Badge } from "@/components/ui/badge";
+import TagsNodePropertyPanel from "../../sidebar/panels/node-properties/property-panels/tags-property";
 
 const NODE_TYPE = BuilderNode.TAGS;
 
@@ -44,6 +43,7 @@ export function TagsNode({ id, isConnectable, selected, data }: TagsNodeProps) {
 
   const handleShowNodeProperties = useCallback(() => {
     showNodePropertiesOf({ id, type: NODE_TYPE });
+    console.log("showNodePropertiesOf", { id, type: NODE_TYPE });
   }, [id, showNodePropertiesOf]);
 
   return (
@@ -119,7 +119,7 @@ export const metadata: RegisterNodeMetadata<TagsNodeData> = {
     outputs: 1,
   },
   defaultData: {
-    tags: ["test", "test2", "test3", "test4", "test5", "test6"],
+    tags: ["test", "test2", "test3", "test4", "test5"],
   },
   propertyPanel: TagsNodePropertyPanel,
 };

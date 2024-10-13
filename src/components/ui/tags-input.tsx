@@ -67,6 +67,8 @@ export const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
           onValueChange([...value, val]);
         }
       },
+
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       [value]
     );
 
@@ -76,6 +78,8 @@ export const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
           onValueChange(value.filter((item) => item !== val));
         }
       },
+
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       [value]
     );
 
@@ -97,6 +101,8 @@ export const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
         onValueChange(newValue);
         setInputValue("");
       },
+
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       [value]
     );
 
@@ -115,8 +121,6 @@ export const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
       [inputValue]
     );
 
-    // ? suggest : a refactor rather then using a useEffect
-
     React.useEffect(() => {
       const VerifyDisable = () => {
         if (value.length - 1 >= parseMinItems) {
@@ -131,15 +135,9 @@ export const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
         }
       };
       VerifyDisable();
+
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value]);
-
-    // ? check: Under build , default option support
-    // * support : for the uncontrolled && controlled ui
-
-    /*  React.useEffect(() => {
-      if (!defaultOptions) return;
-      onValueChange([...value, ...defaultOptions]);
-    }, []); */
 
     const handleKeyDown = React.useCallback(
       async (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -167,8 +165,6 @@ export const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
           setActiveIndex(newIndex);
         };
         const target = e.currentTarget;
-
-        // ? Suggest : the multi select should support the same pattern
 
         switch (e.key) {
           case "ArrowLeft":
@@ -225,6 +221,8 @@ export const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
             break;
         }
       },
+
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       [activeIndex, value, inputValue, RemoveValue]
     );
 
@@ -301,7 +299,7 @@ export const TagsInput = React.forwardRef<HTMLDivElement, TagsInputProps>(
             placeholder={placeholder}
             onClick={() => setActiveIndex(-1)}
             className={cn(
-              "outline-0 border-none h-7 min-w-fit flex-1 focus-visible:outline-0 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-0 placeholder:text-muted-foreground px-1",
+              "outline-0 border-none h-7 min-w-fit flex-1 focus-visible:outline-0 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-0 placeholder:text-muted-foreground/40 px-1",
               activeIndex !== -1 && "caret-transparent"
             )}
           />

@@ -9,7 +9,6 @@ import SidebarPanelHeading from "../../components/sidebar-panel-heading";
 import { NodeListItem } from "./components/node-list-item";
 import { NodePropertyPanel } from "./components/node-propery-panel";
 import IntroductionPropertyPanel from "./property-panels/introduction-property-panel";
-import { Icon } from "@iconify/react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { HeaderWithIcon } from "@/components/flow-builder/components/ui/header-with-icon";
 
@@ -54,7 +53,7 @@ export function NodePropertiesPanel() {
           <HeaderWithIcon icon="mynaui:layers-three" title="Nodes in Flow" />
         </SidebarPanelHeading>
 
-        <ScrollArea className="h-[200px] w-full  ">
+        <ScrollArea className="h-[400px] w-full">
           <div className="flex flex-col gap-1 p-1.5">
             {nodeList.map((node) => (
               <NodeListItem
