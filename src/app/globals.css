@@ -86,3 +86,23 @@ body {
     }
   }
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  @apply bg-card-foreground/20 rounded-sm;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply bg-card/50 rounded-sm;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-card/60 rounded-sm;
+}

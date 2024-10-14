@@ -11,7 +11,7 @@ export default function SidebarPanelWrapper({
 }: SidebarPanelWrapperProps) {
   return (
     <div
-      className={cn("flex flex-col w-80 h-full bg-background/60", className)}
+      className={cn("flex flex-col w-80 h-full  bg-background/60", className)}
       {...props}
     >
       {children}

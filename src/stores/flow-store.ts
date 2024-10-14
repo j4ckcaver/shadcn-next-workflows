@@ -12,6 +12,7 @@ import {
   NodeChange,
 } from "@xyflow/react";
 import { create } from "zustand";
+import { Tag } from "@/types/tag";
 
 interface State {
   view: {
@@ -22,6 +23,7 @@ interface State {
   };
   nodes: Node[];
   edges: Edge[];
+  tags: Tag[];
   sidebar: {
     active: "node-properties" | "available-nodes" | "none";
     panels: {
@@ -63,6 +65,12 @@ interface Actions {
             node: { id: string; type: BuilderNodeType } | undefined | null
           ) => void;
         };
+        tags: {
+          setTags: (tags: Tag[]) => void;
+          createTag: (tag: Tag) => void;
+          deleteTag: (tag: Tag) => void;
+          updateTag: (tag: Tag, newTag: Tag) => void;
+        };
       };
     };
   };
@@ -71,6 +79,24 @@ interface Actions {
 interface IFlowState extends State {
   actions: Actions["actions"];
 }
+
+const TAGS = [
+  {
+    value: "marketing",
+    label: "Marketing",
+    color: "#ef4444",
+  },
+  {
+    value: "lead",
+    label: "Lead",
+    color: "#eab308",
+  },
+  {
+    value: "new",
+    label: "New",
+    color: "#22c55e",
+  },
+] satisfies Tag[];
 
 export const useFlowStore = create<IFlowState>()((set, get) => ({
   view: {
@@ -81,6 +107,7 @@ export const useFlowStore = create<IFlowState>()((set, get) => ({
   },
   edges: defaultEdges,
   nodes: defaultNodes,
+  tags: TAGS,
   sidebar: {
     active: "none",
     panels: {
@@ -131,6 +158,19 @@ export const useFlowStore = create<IFlowState>()((set, get) => ({
                   },
                 },
               },
+            })),
+        },
+        tags: {
+          setTags: (tags: Tag[]) => set({ tags }),
+          createTag: (tag: Tag) =>
+            set((state) => ({ tags: [...state.tags, tag] })),
+          updateTag: (tag: Tag, newTag: Tag) =>
+            set((state) => ({
+              tags: state.tags.map((f) => (f.value === tag.value ? newTag : f)),
+            })),
+          deleteTag: (tag: Tag) =>
+            set((state) => ({
+              tags: state.tags.filter((f) => f.value !== tag.value),
             })),
         },
       },

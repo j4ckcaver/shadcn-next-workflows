@@ -21,7 +21,7 @@ export function DesktopSidebarFragment({
   }, [activePanel, setActivePanel]);
 
   return (
-    <div className="relative max-w-sm w-fit flex shrink-0 divide-x divide-card-foreground/10">
+    <div className="relative  max-w-sm w-fit flex shrink-0 divide-x divide-card-foreground/10">
       {activePanel !== "none" && (
         <div className="min-w-xs grow bg-card">
           <SwitchSidebarPanel active={activePanel} />

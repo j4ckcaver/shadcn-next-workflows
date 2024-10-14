@@ -25,13 +25,19 @@ export interface TagsNodeData extends BaseNodeData {
   tags: string[];
 }
 
+const badgeStyle = (color: string) => ({
+  borderColor: `${color}20`,
+  backgroundColor: `${color}30`,
+  color,
+});
+
 type TagsNodeProps = NodeProps<Node<TagsNodeData, typeof NODE_TYPE>>;
 
 export function TagsNode({ id, isConnectable, selected, data }: TagsNodeProps) {
   const meta = useMemo(() => getNodeDetail(NODE_TYPE), []);
 
-  const [showNodePropertiesOf] = useFlowStore(
-    useShallow((s) => [s.actions.sidebar.showNodePropertiesOf])
+  const [showNodePropertiesOf, tags] = useFlowStore(
+    useShallow((s) => [s.actions.sidebar.showNodePropertiesOf, s.tags])
   );
   const [sourceHandleId] = useState<string>(nanoid());
 
@@ -43,7 +49,6 @@ export function TagsNode({ id, isConnectable, selected, data }: TagsNodeProps) {
 
   const handleShowNodeProperties = useCallback(() => {
     showNodePropertiesOf({ id, type: NODE_TYPE });
-    console.log("showNodePropertiesOf", { id, type: NODE_TYPE });
   }, [id, showNodePropertiesOf]);
 
   return (
@@ -73,8 +78,16 @@ export function TagsNode({ id, isConnectable, selected, data }: TagsNodeProps) {
                 </span>
               ) : (
                 data.tags.map((tag) => (
-                  <Badge key={tag} variant={"secondary"}>
-                    {tag}
+                  <Badge
+                    key={tag}
+                    variant="outline"
+                    style={badgeStyle(
+                      tags.find(({ value }) => value === tag)?.color ||
+                        "#cecece"
+                    )}
+                    className="mb-1 mr-1"
+                  >
+                    {tags.find(({ value }) => value === tag)?.label || tag}
                   </Badge>
                 ))
               )}
@@ -112,14 +125,14 @@ export const metadata: RegisterNodeMetadata<TagsNodeData> = {
     title: "Tags",
     description:
       "Add tags to the message. This will help identify the message in the chat history.",
-    gradientColor: "lime",
+    gradientColor: "pink",
   },
   connection: {
     inputs: 1,
     outputs: 1,
   },
   defaultData: {
-    tags: ["test", "test2", "test3", "test4", "test5"],
+    tags: ["marketing", "new"],
   },
   propertyPanel: TagsNodePropertyPanel,
 };

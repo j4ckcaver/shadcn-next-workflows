@@ -48,41 +48,38 @@ export function NodePropertiesPanel() {
 
   return (
     <SidebarPanelWrapper>
-      <div className="h-full w-80 flex flex-col">
+      <div className="h-80 w-80 flex flex-col">
         <SidebarPanelHeading className="shrink-0">
           <HeaderWithIcon icon="mynaui:layers-three" title="Nodes in Flow" />
         </SidebarPanelHeading>
 
-        <ScrollArea className="h-[400px] w-full">
-          <div className="flex flex-col gap-1 p-1.5">
-            {nodeList.map((node) => (
-              <NodeListItem
-                key={node.id}
-                id={
-                  node.type === BuilderNode.START ||
-                  node.type === BuilderNode.END
-                    ? undefined
-                    : node.id
-                }
-                title={node.detail.title}
-                icon={node.detail.icon}
-                selected={selectedNode?.id === node.id}
-                pseudoSelected={node.selected}
-                onClick={() => {
-                  onNodeClick(node.id);
-                }}
-              />
-            ))}
-          </div>
-        </ScrollArea>
+        <div className="flex w-full  flex-col gap-1 p-1.5 overflow-y-auto">
+          {nodeList.map((node) => (
+            <NodeListItem
+              key={node.id}
+              id={
+                node.type === BuilderNode.START || node.type === BuilderNode.END
+                  ? undefined
+                  : node.id
+              }
+              title={node.detail.title}
+              icon={node.detail.icon}
+              selected={selectedNode?.id === node.id}
+              pseudoSelected={node.selected}
+              onClick={() => {
+                onNodeClick(node.id);
+              }}
+            />
+          ))}
+        </div>
       </div>
 
-      <div className="h-full w-80 flex flex-col">
+      <div className="w-80 max-h-[360px] flex flex-col">
         <SidebarPanelHeading className="shrink-0">
           <HeaderWithIcon icon="mynaui:cog" title="Node Properties" />
         </SidebarPanelHeading>
 
-        <ScrollArea className="h-[400px] w-full">
+        <div className="flex w-full  flex-col  overflow-y-auto">
           {selectedNode ? (
             <NodePropertyPanel
               id={selectedNode.id}
@@ -92,7 +89,7 @@ export function NodePropertiesPanel() {
           ) : (
             <IntroductionPropertyPanel />
           )}
-        </ScrollArea>
+        </div>
       </div>
     </SidebarPanelWrapper>
   );

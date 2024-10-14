@@ -1,21 +1,10 @@
-import { MessageChannelDetails } from "@/components/flow-builder/components/blocks/nodes/text-message-node/constants/channels";
-import { TextMessageNodeData } from "@/components/flow-builder/components/blocks/nodes/text-message-node/text-message.node";
 import { BuilderNodeType } from "@/components/flow-builder/components/blocks/types";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+
 import { Input } from "@/components/ui/input";
-import { TagsInput } from "@/components/ui/tags-input";
-import { Textarea } from "@/components/ui/textarea";
-import { cn } from "@/lib/utils";
-import { Icon } from "@iconify/react/dist/iconify.js";
-import { listify } from "radash";
+
 import { useMemo } from "react";
 import { TagsNodeData } from "../../../../nodes/tags-node/tags.node";
+import { TagsCombobox } from "@/components/flow-builder/components/ui/tags-combobox";
 
 type TagsNodePropertyPanelProps = Readonly<{
   id: string;
@@ -52,17 +41,25 @@ export default function TagsNodePropertyPanel({
       </div>
 
       <div className="flex my-3  flex-col gap-2">
-        <div className="text-xs text-card-foreground/60 font-semibold">
-          Tags
+        <div className="flex justify-between">
+          <div className="text-xs text-card-foreground/60 font-semibold">
+            Tags
+          </div>
+          <p className="text-xs text-card-foreground/60">Max. 5 tags</p>
         </div>
 
-        <TagsInput
-          placeholder="Type tag name"
+        <TagsCombobox
           value={currentTagsDetail}
           onValueChange={(t) => updateData({ tags: t })}
           maxItems={5}
         />
-        <p className="text-xs text-card-foreground/60">Max. 5 tags</p>
+
+        {/* <TagsInput
+          placeholder="Type tag name"
+          value={currentTagsDetail}
+          onValueChange={(t) => updateData({ tags: t })}
+          maxItems={5}
+        /> */}
       </div>
     </div>
   );

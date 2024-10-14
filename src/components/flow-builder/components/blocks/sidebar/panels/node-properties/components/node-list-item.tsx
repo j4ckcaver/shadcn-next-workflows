@@ -39,8 +39,8 @@ export function NodeListItem({
       <HeaderWithIcon icon={icon} title={title} />
 
       {id && !isEmpty(id) && (
-        <div className="rounded-md bg-card px-2 py-1.5 text-2.5 text-card-foreground/80 font-semibold leading-none tracking-wide">
-          {truncateMiddle(id, 12)}
+        <div className="rounded-md text-xs max-w-20 overflow-hidden bg-card px-2 py-1.5 text-2.5 text-card-foreground/80 font-semibold leading-none tracking-wide">
+          {truncateMiddle(id, 4)}
         </div>
       )}
     </Button>
