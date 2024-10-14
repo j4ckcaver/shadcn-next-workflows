@@ -6,6 +6,7 @@ export enum BuilderNode {
   TEXT_MESSAGE = "text-message",
   CONDITIONAL_PATH = "conditional-path",
   TAGS = "tags",
+  MENU = "menu",
 }
 
 export const HeaderGradientColors = {

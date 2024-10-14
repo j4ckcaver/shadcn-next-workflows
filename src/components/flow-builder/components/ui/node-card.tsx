@@ -60,11 +60,6 @@ const NodeCardHeader = React.forwardRef<HTMLDivElement, NodeCardHeaderProps>(
           </div>
 
           <div className="flex shrink-0 items-center gap-x-0.5 pr-0.5">
-            {/* <MessageChannelSelector
-                detail={messageChannelDetail}
-                onSelect={onMessageChannelSelect}
-              /> */}
-
             <div className="mx-1 h-4 w-px bg-card-foreground/10" />
 
             <Button
