@@ -82,42 +82,36 @@ export function TextMessageNode({
   }, [id, showNodePropertiesOf]);
 
   return (
-    <>
-      <NodeCard
-        data-selected={selected}
-        onDoubleClick={handleShowNodeProperties}
-      >
-        <NodeCardHeader
-          icon={meta.icon}
-          title={meta.title}
-          handleDeleteNode={handleDeleteNode}
-          handleShowNodeProperties={handleShowNodeProperties}
-          gradientColor={meta.gradientColor}
-        />
+    <NodeCard data-selected={selected} onDoubleClick={handleShowNodeProperties}>
+      <NodeCardHeader
+        icon={meta.icon}
+        title={meta.title}
+        handleDeleteNode={handleDeleteNode}
+        handleShowNodeProperties={handleShowNodeProperties}
+        gradientColor={meta.gradientColor}
+      />
 
-        <NodeCardContent>
-          <div className="flex flex-col p-4">
-            <div className="text-xs font-medium text-card-foreground">
-              Message Content
-            </div>
-
-            <div className="line-clamp-4 mt-2 text-sm leading-snug">
-              {isEmpty(data.message) ? (
-                <span className="text-card-foreground italic">
-                  No message yet...
-                </span>
-              ) : (
-                data.message
-              )}
-            </div>
+      <NodeCardContent>
+        <div className="flex flex-col p-4">
+          <div className="text-xs font-medium text-card-foreground">
+            Message Content
           </div>
 
-          <NodeCardDescription description="This message will be sent to user using channel" />
+          <div className="line-clamp-4 mt-2 text-sm leading-snug">
+            {isEmpty(data.message) ? (
+              <span className="text-card-foreground italic">
+                No message yet...
+              </span>
+            ) : (
+              data.message
+            )}
+          </div>
+        </div>
 
-          <NodeCardFooter nodeId={id} />
-        </NodeCardContent>
-      </NodeCard>
+        <NodeCardDescription description="This message will be sent to user using channel" />
 
+        <NodeCardFooter nodeId={id} />
+      </NodeCardContent>
       <CustomHandle
         type="target"
         id={sourceHandleId}
@@ -131,7 +125,7 @@ export function TextMessageNode({
         position={Position.Right}
         isConnectable={isConnectable}
       />
-    </>
+    </NodeCard>
   );
 }
 

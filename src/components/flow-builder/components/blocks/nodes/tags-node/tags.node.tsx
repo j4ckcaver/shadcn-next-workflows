@@ -52,54 +52,47 @@ export function TagsNode({ id, isConnectable, selected, data }: TagsNodeProps) {
   }, [id, showNodePropertiesOf]);
 
   return (
-    <>
-      <NodeCard
-        data-selected={selected}
-        onDoubleClick={handleShowNodeProperties}
-      >
-        <NodeCardHeader
-          icon={meta.icon}
-          title={meta.title}
-          handleDeleteNode={handleDeleteNode}
-          handleShowNodeProperties={handleShowNodeProperties}
-          gradientColor={meta.gradientColor}
-        />
+    <NodeCard data-selected={selected} onDoubleClick={handleShowNodeProperties}>
+      <NodeCardHeader
+        icon={meta.icon}
+        title={meta.title}
+        handleDeleteNode={handleDeleteNode}
+        handleShowNodeProperties={handleShowNodeProperties}
+        gradientColor={meta.gradientColor}
+      />
 
-        <NodeCardContent>
-          <div className="flex flex-col p-4">
-            <div className="text-xs font-medium text-card-foreground">
-              Tags added
-            </div>
-
-            <div className="line-clamp-1 flex gap-2 flex-wrap mt-2 text-sm leading-snug">
-              {isEmpty(data.tags) ? (
-                <span className="text-card-foreground italic">
-                  No tags added...
-                </span>
-              ) : (
-                data.tags.map((tag) => (
-                  <Badge
-                    key={tag}
-                    variant="outline"
-                    style={badgeStyle(
-                      tags.find(({ value }) => value === tag)?.color ||
-                        "#cecece"
-                    )}
-                    className="mb-1 mr-1"
-                  >
-                    {tags.find(({ value }) => value === tag)?.label || tag}
-                  </Badge>
-                ))
-              )}
-            </div>
+      <NodeCardContent>
+        <div className="flex flex-col p-4">
+          <div className="text-xs font-medium text-card-foreground">
+            Tags added
           </div>
 
-          <NodeCardDescription description="Add tags" />
+          <div className="line-clamp-1 flex gap-2 flex-wrap mt-2 text-sm leading-snug">
+            {isEmpty(data.tags) ? (
+              <span className="text-card-foreground italic">
+                No tags added...
+              </span>
+            ) : (
+              data.tags.map((tag) => (
+                <Badge
+                  key={tag}
+                  variant="outline"
+                  style={badgeStyle(
+                    tags.find(({ value }) => value === tag)?.color || "#cecece"
+                  )}
+                  className="mb-1 mr-1"
+                >
+                  {tags.find(({ value }) => value === tag)?.label || tag}
+                </Badge>
+              ))
+            )}
+          </div>
+        </div>
 
-          <NodeCardFooter nodeId={id} />
-        </NodeCardContent>
-      </NodeCard>
+        <NodeCardDescription description="Add tags" />
 
+        <NodeCardFooter nodeId={id} />
+      </NodeCardContent>
       <CustomHandle
         type="target"
         id={sourceHandleId}
@@ -113,7 +106,7 @@ export function TagsNode({ id, isConnectable, selected, data }: TagsNodeProps) {
         position={Position.Right}
         isConnectable={isConnectable}
       />
-    </>
+    </NodeCard>
   );
 }
 

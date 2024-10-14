@@ -53,13 +53,6 @@ export default function TagsNodePropertyPanel({
           onValueChange={(t) => updateData({ tags: t })}
           maxItems={5}
         />
-
-        {/* <TagsInput
-          placeholder="Type tag name"
-          value={currentTagsDetail}
-          onValueChange={(t) => updateData({ tags: t })}
-          maxItems={5}
-        /> */}
       </div>
     </div>
   );

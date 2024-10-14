@@ -9,7 +9,6 @@ import SidebarPanelHeading from "../../components/sidebar-panel-heading";
 import { NodeListItem } from "./components/node-list-item";
 import { NodePropertyPanel } from "./components/node-propery-panel";
 import IntroductionPropertyPanel from "./property-panels/introduction-property-panel";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { HeaderWithIcon } from "@/components/flow-builder/components/ui/header-with-icon";
 
 export function NodePropertiesPanel() {

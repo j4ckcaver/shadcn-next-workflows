@@ -85,7 +85,7 @@ export function TagsCombobox({
   const handleCreateTag = (name: string) => {
     const newTag = {
       value: name.toLowerCase(),
-      label: name,
+      label: name[0].toUpperCase() + name.substring(1),
       color: "#cecece",
     };
 

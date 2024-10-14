@@ -53,14 +53,16 @@ export default function CustomHandle({
   }, [edges, isConnectable, nodeId, nodeLookup]);
 
   return (
-    <Handle
-      className={cn(
-        "hover:!ring-2 hover:ring-primary/50",
-        "!size-3 border-2 border-card-foreground/40 transition bg-card shadow-sm",
-        className
-      )}
-      isConnectable={isHandleConnectable}
-      {...props}
-    />
+    <span>
+      <Handle
+        className={cn(
+          "cursor-crosshair",
+          "size-3 hover:border-primary/50  border-2 border-card-foreground/40",
+          className
+        )}
+        isConnectable={isHandleConnectable}
+        {...props}
+      />
+    </span>
   );
 }
