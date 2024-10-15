@@ -24,21 +24,7 @@ export default function TagsNodePropertyPanel({
 
   return (
     <div className="flex flex-col gap-4.5 p-4">
-      <div className="flex flex-col">
-        <div className="text-xs text-card-foreground/60 font-semibold">
-          Unique Identifier
-        </div>
-
-        <div className="mt-2 flex">
-          <Input
-            type="text"
-            value={id}
-            readOnly
-            disabled
-            className="h-8 w-full read-only:opacity-80 read-only:hover:bg-card/30 select-none"
-          />
-        </div>
-      </div>
+      <div className="text-xs text-card-foreground/20 self-end ">{id}</div>
 
       <div className="flex my-3  flex-col gap-2">
         <div className="flex justify-between">

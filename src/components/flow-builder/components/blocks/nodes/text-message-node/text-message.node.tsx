@@ -8,11 +8,7 @@ import { nanoid } from "nanoid";
 import { isEmpty } from "radash";
 import { memo, useCallback, useMemo, useState } from "react";
 import { BaseNodeData, BuilderNode, RegisterNodeMetadata } from "../../types";
-import {
-  getMessageChannelDetails,
-  MessageChannelDetail,
-  MessageChannelType,
-} from "./constants/channels";
+
 import { getNodeDetail } from "../../utils";
 import { useFlowStore } from "@/stores/flow-store";
 import { useDeleteNode } from "@/hooks/use-delete-node";
@@ -31,7 +27,6 @@ import {
 const NODE_TYPE = BuilderNode.TEXT_MESSAGE;
 
 export interface TextMessageNodeData extends BaseNodeData {
-  channel: MessageChannelType;
   message: string;
 }
 
@@ -54,24 +49,6 @@ export function TextMessageNode({
 
   const { setNodes } = useReactFlow();
   const deleteNode = useDeleteNode();
-
-  const messageChannelDetail = useMemo(() => {
-    return getMessageChannelDetails(data.channel);
-  }, [data.channel]);
-
-  const onMessageChannelSelect = useCallback(
-    (channel: MessageChannelDetail & { type: MessageChannelType }) => {
-      setNodes((nodes) =>
-        produce(nodes, (draft) => {
-          const node = draft.find((node) => node.id === id);
-
-          if (node) node.data.channel = channel.type;
-        })
-      );
-    },
-
-    [id, setNodes]
-  );
 
   const handleDeleteNode = () => {
     deleteNode(id);
@@ -108,7 +85,7 @@ export function TextMessageNode({
           </div>
         </div>
 
-        <NodeCardDescription description="This message will be sent to user using channel" />
+        <NodeCardDescription description="This message will be sent to user" />
 
         <NodeCardFooter nodeId={id} />
       </NodeCardContent>
@@ -143,7 +120,6 @@ export const metadata: RegisterNodeMetadata<TextMessageNodeData> = {
     outputs: 1,
   },
   defaultData: {
-    channel: "whatsapp",
     message: "",
   },
   propertyPanel: TextMessageNodePropertyPanel,
