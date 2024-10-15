@@ -181,6 +181,7 @@ export default function MenuNodePropertyPanel({
 
         <Button
           className="mt-4"
+          size={"sm"}
           variant={"outline"}
           onClick={handleAddNodePath}
         >
