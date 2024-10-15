@@ -22,11 +22,8 @@ import MenuNodePropertyPanel from "../../sidebar/panels/node-properties/property
 const NODE_TYPE = BuilderNode.MENU;
 
 export interface MenuNodeData extends BaseNodeData {
-  question: {
-    id: string;
-    message: string;
-  } | null;
-  options: { id: string; case: { id: number; value: string } }[];
+  question: string | null;
+  options: { id: string; option: { id: number; value: string } }[];
 }
 
 type MenuNodeProps = NodeProps<Node<MenuNodeData, typeof NODE_TYPE>>;
@@ -67,11 +64,9 @@ export function MenuNode({ id, isConnectable, selected, data }: MenuNodeProps) {
             </div>
 
             <div className="line-clamp-4 mt-2 text-sm leading-snug">
-              {isEmpty(data.message) ? (
-                <span className="text-card-foreground italic">
-                  Choose an option:
-                </span>
-              ) : null}
+              <span className="text-card-foreground italic">
+                {isEmpty(data.question) ? "No question..." : data.question}
+              </span>
             </div>
           </div>
         </div>
@@ -80,14 +75,16 @@ export function MenuNode({ id, isConnectable, selected, data }: MenuNodeProps) {
           <div className="text-xs text-light-900/50 font-medium">Options</div>
 
           {data.options.length > 0 &&
-            data.options.map((path) => (
-              <NodeOption
-                key={path.id}
-                id={path.id}
-                path={path.case}
-                isConnectable={isConnectable}
-              />
-            ))}
+            Array.from(data.options)
+              .sort((a, b) => a.option.id - b.option.id)
+              .map((option) => (
+                <NodeOption
+                  key={option.id}
+                  id={option.id}
+                  option={option.option}
+                  isConnectable={isConnectable}
+                />
+              ))}
         </div>
 
         <NodeCardDescription description="Options to choose from." />
@@ -122,22 +119,22 @@ export const metadata: RegisterNodeMetadata<MenuNodeData> = {
     options: [
       {
         id: nanoid(),
-        case: {
-          id: 1,
+        option: {
+          id: 0,
           value: "Option 1",
         },
       },
       {
         id: nanoid(),
-        case: {
-          id: 2,
+        option: {
+          id: 1,
           value: "Option 2",
         },
       },
       {
         id: nanoid(),
-        case: {
-          id: 3,
+        option: {
+          id: 2,
           value: "Option 3",
         },
       },

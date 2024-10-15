@@ -13,6 +13,7 @@ import {
 } from "@xyflow/react";
 import { create } from "zustand";
 import { Tag } from "@/types/tag";
+import { produce } from "immer";
 
 interface State {
   view: {
@@ -177,9 +178,13 @@ export const useFlowStore = create<IFlowState>()((set, get) => ({
     },
     nodes: {
       onNodesChange: (changes) => {
-        set({
-          nodes: applyNodeChanges(changes, get().nodes),
-        });
+        set((state) =>
+          produce(state, (draft) => {
+            const updatedNodes = applyNodeChanges(changes, draft.nodes);
+
+            draft.nodes = updatedNodes;
+          })
+        );
       },
       setNodes: (nodes) => {
         set({ nodes });

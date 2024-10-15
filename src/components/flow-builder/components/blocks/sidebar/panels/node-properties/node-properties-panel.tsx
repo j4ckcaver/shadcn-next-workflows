@@ -73,7 +73,7 @@ export function NodePropertiesPanel() {
         </div>
       </div>
 
-      <div className="w-80 max-h-[360px] flex flex-col">
+      <div className="w-80 max-h-[360px] 2xl:max-h-[594px] flex flex-col">
         <SidebarPanelHeading className="shrink-0">
           <HeaderWithIcon icon="mynaui:cog" title="Node Properties" />
         </SidebarPanelHeading>
