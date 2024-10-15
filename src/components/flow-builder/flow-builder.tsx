@@ -21,6 +21,9 @@ import AddNodeFloatingMenu from "./components/add-node-floating-menu/add-node-fl
 import { useFlowStore } from "@/stores/flow-store";
 import { useShallow } from "zustand/shallow";
 import { NODE_TYPES } from "./components/blocks";
+import { Card } from "../ui/card";
+import { SaveFlowButton } from "./components/ui/save-flow-buttom";
+import { ModeToggle } from "../ui/button-theme-toggle";
 
 const edgeTypes: EdgeTypes = {
   deletable: CustomDeletableEdge,
@@ -99,6 +102,11 @@ export const FlowBuilder = () => {
 
   return (
     <div className="relative size-full">
+      <Card className=" from-primary/10 p-1 to-transparent rounded-none bg-gradient-to-r w-full  items-center flex justify-between border-b border-card-foreground/10">
+        <ModeToggle />
+
+        <SaveFlowButton />
+      </Card>
       <ReactFlow
         proOptions={{ hideAttribution: true }}
         onInit={({ fitView }) => fitView().then()}

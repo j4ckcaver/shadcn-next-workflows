@@ -1,7 +1,6 @@
 import { metadata as StartNodeMetadata } from "./nodes/start.node";
 import { metadata as EndNodeMetadata } from "./nodes/end.node";
 import { metadata as TextMessageNodeMetadata } from "./nodes/text-message-node/text-message.node";
-import { metadata as ConditionalPathNode } from "./nodes/conditional-path-node/conditional-path.node";
 import { metadata as TagsNodeMetadata } from "./nodes/tags-node/tags.node";
 import { metadata as MenuNodeMetadata } from "./nodes/menu-node/menu.node";
 
@@ -11,7 +10,6 @@ export const NODES: RegisterNodeMetadata[] = [
   StartNodeMetadata,
   EndNodeMetadata,
   TextMessageNodeMetadata,
-  ConditionalPathNode,
   TagsNodeMetadata,
   MenuNodeMetadata,
 ];

@@ -37,6 +37,11 @@ interface State {
 
 interface Actions {
   actions: {
+    saveWorkflow: () => {
+      nodes: Node[];
+      edges: Edge[];
+      tags: Tag[];
+    };
     view: {
       setMobileView: (isMobile: boolean) => void;
     };
@@ -118,6 +123,10 @@ export const useFlowStore = create<IFlowState>()((set, get) => ({
     },
   },
   actions: {
+    saveWorkflow: () => {
+      const { nodes, edges, tags } = get();
+      return { nodes, edges, tags };
+    },
     view: {
       setMobileView: (isMobile: boolean) =>
         set((state) => ({ view: { ...state.view, mobile: isMobile } })),
