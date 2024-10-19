@@ -13,7 +13,7 @@ import { HeaderWithIcon } from "@/components/flow-builder/components/ui/header-w
 
 export function NodePropertiesPanel() {
   const selectedNode = useFlowStore(
-    (s) => s.sidebar.panels.nodeProperties.selectedNode
+    (s) => s.workflow.sidebar.panels.nodeProperties.selectedNode
   );
 
   const setSelectedNode = useFlowStore(

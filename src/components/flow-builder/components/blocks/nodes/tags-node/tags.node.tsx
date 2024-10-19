@@ -37,7 +37,7 @@ export function TagsNode({ id, isConnectable, selected, data }: TagsNodeProps) {
   const meta = useMemo(() => getNodeDetail(NODE_TYPE), []);
 
   const [showNodePropertiesOf, tags] = useFlowStore(
-    useShallow((s) => [s.actions.sidebar.showNodePropertiesOf, s.tags])
+    useShallow((s) => [s.actions.sidebar.showNodePropertiesOf, s.workflow.tags])
   );
   const [sourceHandleId] = useState<string>(nanoid());
 

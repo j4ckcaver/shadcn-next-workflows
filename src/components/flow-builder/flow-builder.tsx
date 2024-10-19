@@ -24,25 +24,28 @@ import { NODE_TYPES } from "./components/blocks";
 import { Card } from "../ui/card";
 import { SaveFlowButton } from "./components/ui/save-flow-buttom";
 import { ModeToggle } from "../ui/button-theme-toggle";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
 
 const edgeTypes: EdgeTypes = {
   deletable: CustomDeletableEdge,
 };
 
 export const FlowBuilder = () => {
-  const [nodes, edges, onNodesChange, onEdgesChange, onConnect] = useFlowStore(
+  const router = useRouter()
+  const [name, nodes, edges, onNodesChange, onEdgesChange, onConnect] = useFlowStore(
     useShallow((s) => [
-      s.nodes,
-      s.edges,
+      s.workflow.name,
+      s.workflow.nodes,
+      s.workflow.edges,
       s.actions.nodes.onNodesChange,
       s.actions.edges.onEdgesChange,
       s.actions.edges.onConnect,
     ])
   );
   const { getNodes } = useReactFlow();
-  const [isBuilderBlurred] = useFlowStore(
-    useShallow((s) => [s.view.mobile, s.builder.blurred])
-  );
+
   const {
     handleOnEdgeDropConnectEnd,
     floatingMenuWrapperRef,
@@ -101,53 +104,69 @@ export const FlowBuilder = () => {
   );
 
   return (
-    <div className="relative size-full">
-      <Card className=" from-primary/10 p-1 to-transparent rounded-none bg-gradient-to-r w-full  items-center flex justify-between border-b border-card-foreground/10">
-        <ModeToggle />
+    <>
+      <Card className=" h-14  from-primary/10 p-2 to-transparent rounded-none bg-gradient-to-r w-full  items-center flex justify-between border-b border-card-foreground/10">
+        <div className="inline-flex items-center gap-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="text-primary-foreground font-bold"
+            onClick={() => router.back()}
+          >
+            <Icon
+              icon="ion:arrow-back-outline"
+              className="size-6 text-card-foreground"
+            />
+          </Button>
+          <h1 className="text-card-foreground font-bold">
+            {name}
+          </h1>
+        </div>
 
-        <SaveFlowButton />
+        <div className="inline-flex items-center gap-2">
+          <ModeToggle />
+          <SaveFlowButton />
+        </div>
       </Card>
-      <ReactFlow
-        proOptions={{ hideAttribution: true }}
-        onInit={({ fitView }) => fitView().then()}
-        nodeTypes={NODE_TYPES}
-        nodes={nodes}
-        onNodesChange={handleNodesChange}
-        edgeTypes={edgeTypes}
-        edges={edges}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
-        onConnectEnd={handleOnEdgeDropConnectEnd}
-        onDrop={onDrop}
-        onDragOver={onDragOver}
-        onNodeDragStop={(_, node) => {
-          autoAdjustNode(node);
-        }}
-        onNodesDelete={onNodesDelete}
-        isValidConnection={isValidConnection}
-        multiSelectionKeyCode={null}
-        deleteKeyCode={deleteKeyCode}
-        snapGrid={[16, 16]}
-        snapToGrid
-        fitView
-      >
-        <Background gap={32} />
-        <CustomControls />
-      </ReactFlow>
-
+      <div className="relative w-full h-[94vh]">
+        <ReactFlow
+          proOptions={{ hideAttribution: true }}
+          onInit={({ fitView }) => fitView().then()}
+          nodeTypes={NODE_TYPES}
+          nodes={nodes}
+          onNodesChange={handleNodesChange}
+          edgeTypes={edgeTypes}
+          edges={edges}
+          onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
+          onConnectEnd={handleOnEdgeDropConnectEnd}
+          onDrop={onDrop}
+          onDragOver={onDragOver}
+          onNodeDragStop={(_, node) => {
+            autoAdjustNode(node);
+          }}
+          onNodesDelete={onNodesDelete}
+          isValidConnection={isValidConnection}
+          multiSelectionKeyCode={null}
+          deleteKeyCode={deleteKeyCode}
+          snapGrid={[16, 16]}
+          snapToGrid
+          fitView
+        >
+          <Background gap={24} />
+          <CustomControls />
+        </ReactFlow>
+      </div>
       <div
         className={cn(
           "pointer-events-none absolute inset-0 backdrop-blur-3xl transition-all",
-          isBuilderBlurred &&
-            "opacity-100 bg-background/30 backdrop-saturate-50 pointer-events-auto",
-          !isBuilderBlurred &&
-            "opacity-0 bg-zinc-800/0 backdrop-saturate-100 pointer-events-none"
+          "opacity-0 bg-zinc-800/0 backdrop-saturate-100 pointer-events-none"
         )}
       >
         <div ref={floatingMenuWrapperRef} className="relative size-full">
           <AddNodeFloatingMenu onNodeAdd={handleAddConnectedNode} />
         </div>
       </div>
-    </div>
+    </>
   );
 };

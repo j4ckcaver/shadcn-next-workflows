@@ -68,7 +68,7 @@ export function TagsCombobox({
 }) {
   const [tags, updateTag, deleteTag, createTag] = useFlowStore(
     useShallow((s) => [
-      s.tags,
+      s.workflow.tags,
       s.actions.sidebar.panels.tags.updateTag,
       s.actions.sidebar.panels.tags.deleteTag,
       s.actions.sidebar.panels.tags.createTag,

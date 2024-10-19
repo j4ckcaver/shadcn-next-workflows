@@ -2,7 +2,6 @@ import {
   type Node,
   type NodeProps,
   Position,
-  useReactFlow,
 } from "@xyflow/react";
 import { nanoid } from "nanoid";
 import { isEmpty } from "radash";
@@ -15,7 +14,6 @@ import { useDeleteNode } from "@/hooks/use-delete-node";
 import CustomHandle from "@/components/flow-builder/components/handles/custom-handler";
 import TextMessageNodePropertyPanel from "../../sidebar/panels/node-properties/property-panels/text-message-property-panel";
 import { useShallow } from "zustand/shallow";
-import { produce } from "immer";
 import {
   NodeCard,
   NodeCardContent,
@@ -47,7 +45,6 @@ export function TextMessageNode({
   );
   const [sourceHandleId] = useState<string>(nanoid());
 
-  const { setNodes } = useReactFlow();
   const deleteNode = useDeleteNode();
 
   const handleDeleteNode = () => {

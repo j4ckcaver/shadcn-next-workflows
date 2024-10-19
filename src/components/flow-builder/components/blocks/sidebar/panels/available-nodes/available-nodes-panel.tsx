@@ -7,8 +7,8 @@ import { NodePreviewDraggable } from "./components/node-preview-draggable";
 import { Icon } from "@iconify/react";
 
 export default function AvailableNodesPanel() {
-  const [isMobileView, setActivePanel] = useFlowStore(
-    useShallow((s) => [s.view.mobile, s.actions.sidebar.setActivePanel])
+  const [setActivePanel] = useFlowStore(
+    useShallow((s) => [ s.actions.sidebar.setActivePanel])
   );
 
   const insertNode = useInsertNode();
@@ -23,9 +23,7 @@ export default function AvailableNodesPanel() {
         <div className="mt-4 text-balance font-medium">Available Nodes</div>
 
         <div className="mt-1 w-2/3 text-xs text-light-50/40 font-medium leading-normal">
-          {isMobileView
-            ? "Tap on a node to add it to your chatbot flow"
-            : "Drag and drop nodes to build your chatbot flow"}
+          Drag and drop nodes to build your chatbot flow
         </div>
       </div>
 
@@ -37,7 +35,6 @@ export default function AvailableNodesPanel() {
             icon={node.icon}
             title={node.title}
             description={node.description}
-            isMobileView={isMobileView}
             setActivePanel={setActivePanel}
             insertNode={insertNode}
           />

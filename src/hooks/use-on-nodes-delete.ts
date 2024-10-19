@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback } from "react";
-
 import type { Node } from "@xyflow/react";
 import { useFlowStore } from "@/stores/flow-store";
 import { useShallow } from "zustand/shallow";
@@ -10,7 +9,7 @@ export function useOnNodesDelete(nodes: Node[]) {
   const [nodePropertiesSelectedNode, nodePropertiesSetSelectedNode] =
     useFlowStore(
       useShallow((state) => [
-        state.sidebar.panels.nodeProperties.selectedNode,
+        state.workflow.sidebar.panels.nodeProperties.selectedNode,
         state.actions.sidebar.panels.nodeProperties.setSelectedNode,
       ])
     );

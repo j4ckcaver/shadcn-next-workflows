@@ -2,19 +2,14 @@
 import { useAddNodeOnEdgeDropStore } from "@/stores/add-node-on-edge-drop-state";
 import { type FinalConnectionState, useReactFlow } from "@xyflow/react";
 import { nanoid } from "nanoid";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useRef } from "react";
 import { useInsertNode } from "./use-insert-node";
-import { useFlowStore } from "@/stores/flow-store";
 import { useShallow } from "zustand/shallow";
 import { BuilderNodeType } from "@/components/flow-builder/components/blocks/types";
 
 export function useAddNodeOnEdgeDrop() {
-  const [setBuilderBlur] = useFlowStore(
-    useShallow((state) => [state.actions.builder.setBlur])
-  );
 
   const [
-    showMenu,
     dropPosition,
     incomingNodeMetadetails,
     setAnchorPosition,
@@ -23,7 +18,6 @@ export function useAddNodeOnEdgeDrop() {
     setIncomingNodeMetadetails,
   ] = useAddNodeOnEdgeDropStore(
     useShallow((s) => [
-      s.showMenu,
       s.dropPosition,
       s.incomingNodeMetadetails,
       s.actions.setAnchorPosition,
@@ -38,11 +32,6 @@ export function useAddNodeOnEdgeDrop() {
 
   const floatingMenuWrapperRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (!showMenu) {
-      setBuilderBlur(false);
-    }
-  }, [showMenu, setBuilderBlur]);
 
   const handleAddConnectedNode = useCallback(
     (type: BuilderNodeType) => {
@@ -100,18 +89,17 @@ export function useAddNodeOnEdgeDrop() {
             (clientX > _floatingMenuWrapperRect.width + _anchorPositionPadding
               ? _floatingMenuWrapperRect.width - _anchorPositionPadding
               : clientX < _anchorPositionPadding
-              ? _anchorPositionPadding
-              : clientX) - _floatingMenuWrapperRect.x,
+                ? _anchorPositionPadding
+                : clientX) - _floatingMenuWrapperRect.x,
           y:
             clientY > _floatingMenuWrapperRect.height + _anchorPositionPadding
               ? _floatingMenuWrapperRect.height - _anchorPositionPadding
               : clientY < _anchorPositionPadding
-              ? _anchorPositionPadding
-              : clientY - _floatingMenuWrapperRect.y,
+                ? _anchorPositionPadding
+                : clientY - _floatingMenuWrapperRect.y,
         };
 
         setAnchorPosition(_addNodeFloatingMenuAnchorPosition);
-        setBuilderBlur(true);
         setShowMenu(true);
         setIncomingNodeMetadetails(connectionState);
         setDropPosition(screenToFlowPosition({ x: clientX, y: clientY }));
@@ -119,7 +107,6 @@ export function useAddNodeOnEdgeDrop() {
     },
     [
       setAnchorPosition,
-      setBuilderBlur,
       setShowMenu,
       setIncomingNodeMetadetails,
       screenToFlowPosition,

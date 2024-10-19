@@ -16,12 +16,6 @@ import { Tag } from "@/types/tag";
 import { produce } from "immer";
 
 interface State {
-  view: {
-    mobile: boolean;
-  };
-  builder: {
-    blurred: boolean;
-  };
   nodes: Node[];
   edges: Edge[];
   tags: Tag[];
@@ -41,12 +35,6 @@ interface Actions {
       nodes: Node[];
       edges: Edge[];
       tags: Tag[];
-    };
-    view: {
-      setMobileView: (isMobile: boolean) => void;
-    };
-    builder: {
-      setBlur: (blur: boolean) => void;
     };
     nodes: {
       onNodesChange: (changes: NodeChange[]) => void;
@@ -82,7 +70,11 @@ interface Actions {
   };
 }
 
-interface IFlowState extends State {
+interface IFlowState {
+  workflow: {
+    id: string;
+    name: string;
+  } & State
   actions: Actions["actions"];
 }
 
@@ -105,82 +97,87 @@ const TAGS = [
 ] satisfies Tag[];
 
 export const useFlowStore = create<IFlowState>()((set, get) => ({
-  view: {
-    mobile: false,
-  },
-  builder: {
-    blurred: false,
-  },
-  edges: defaultEdges,
-  nodes: defaultNodes,
-  tags: TAGS,
-  sidebar: {
-    active: "none",
-    panels: {
-      nodeProperties: {
-        selectedNode: null,
+  workflow: {
+    id: nanoid(),
+    name: "Default Workflow",
+    edges: defaultEdges,
+    nodes: defaultNodes,
+    tags: TAGS,
+    sidebar: {
+      active: "none",
+      panels: {
+        nodeProperties: {
+          selectedNode: null,
+        },
       },
     },
   },
   actions: {
     saveWorkflow: () => {
-      const { nodes, edges, tags } = get();
-      return { nodes, edges, tags };
-    },
-    view: {
-      setMobileView: (isMobile: boolean) =>
-        set((state) => ({ view: { ...state.view, mobile: isMobile } })),
-    },
-    builder: {
-      setBlur: (blur: boolean) =>
-        set((state) => ({ builder: { ...state.builder, blurred: blur } })),
+      const { workflow } = get();
+      return workflow;
     },
     sidebar: {
       setActivePanel: (panel: "node-properties" | "available-nodes" | "none") =>
-        set((state) => ({ sidebar: { ...state.sidebar, active: panel } })),
-      showNodePropertiesOf: (node: { id: string; type: BuilderNodeType }) =>
+        set((state) => ({ workflow: { ...state.workflow, sidebar: { ...state.workflow.sidebar, active: panel } } })),
+      showNodePropertiesOf: (node: { id: string; type: BuilderNodeType }) => {
         set((state) => ({
-          sidebar: {
-            ...state.sidebar,
-            active: "node-properties",
-            panels: {
-              ...state.sidebar.panels,
-              nodeProperties: {
-                ...state.sidebar.panels.nodeProperties,
-                selectedNode: node,
+          workflow: {
+            ...state.workflow,
+            sidebar: {
+              ...state.workflow.sidebar,
+              active: "node-properties",
+              panels: {
+                ...state.workflow.sidebar.panels,
+                nodeProperties: {
+                  ...state.workflow.sidebar.panels.nodeProperties,
+                  selectedNode: node,
+                },
               },
             },
-          },
-        })),
+          }
+        }));
+      },
       panels: {
         nodeProperties: {
           setSelectedNode: (
             node: { id: string; type: BuilderNodeType } | undefined | null
           ) =>
             set((state) => ({
-              sidebar: {
-                ...state.sidebar,
-                panels: {
-                  ...state.sidebar.panels,
-                  nodeProperties: {
-                    ...state.sidebar.panels.nodeProperties,
-                    selectedNode: node,
+              workflow: {
+                ...state.workflow,
+                sidebar: {
+                  ...state.workflow.sidebar,
+                  panels: {
+                    ...state.workflow.sidebar.panels,
+                    nodeProperties: {
+                      ...state.workflow.sidebar.panels.nodeProperties,
+                      selectedNode: node,
+                    },
                   },
                 },
-              },
+              }
             })),
         },
         tags: {
-          setTags: (tags: Tag[]) => set({ tags }),
+          setTags: (tags: Tag[]) => set({ workflow: { ...get().workflow, tags } }),
           createTag: (tag: Tag) =>
-            set((state) => ({ tags: [...state.tags, tag] })),
+            set((state) => ({ workflow: { ...state.workflow, tags: [...state.workflow.tags, tag] } })),
           updateTag: (tag: Tag, newTag: Tag) =>
             set((state) => ({
-              tags: state.tags.map((f) => (f.value === tag.value ? newTag : f)),
+              workflow: {
+                ...state.workflow,
+                tags: state.workflow.tags.map((f) =>
+                  f.value === tag.value ? newTag : f
+                ),
+              }
             })),
           deleteTag: (tag: Tag) =>
             set((state) => ({
-              tags: state.tags.filter((f) => f.value !== tag.value),
+              workflow: {
+                ...state.workflow,
+                tags: state.workflow.tags.filter((f) => f.value !== tag.value),
+              }
             })),
         },
       },
@@ -189,31 +186,36 @@ export const useFlowStore = create<IFlowState>()((set, get) => ({
       onNodesChange: (changes) => {
         set((state) =>
           produce(state, (draft) => {
-            const updatedNodes = applyNodeChanges(changes, draft.nodes);
+            const updatedNodes = applyNodeChanges(changes, draft.workflow.nodes);
 
-            draft.nodes = updatedNodes;
+            draft.workflow.nodes = updatedNodes;
           })
         );
       },
       setNodes: (nodes) => {
-        set({ nodes });
+        set({ workflow: { ...get().workflow, nodes } });
       },
     },
     edges: {
       onEdgesChange: (changes) => {
-        set({
-          edges: applyEdgeChanges(changes, get().edges),
-        });
+        set((state) =>
+          produce(state, (draft) => {
+            const updatedEdges = applyEdgeChanges(changes, draft.workflow.edges);
+
+            draft.workflow.edges = updatedEdges;
+          })
+        )
       },
       onConnect: (connection) => {
         const edge = { ...connection, id: nanoid(), type: "deletable" } as Edge;
         set({
-          edges: addEdge(edge, get().edges),
+          workflow: {
+            ...get().workflow, edges: addEdge(edge, get().workflow.edges)
+          }
         });
       },
-
       setEdges: (edges) => {
-        set({ edges });
+        set({ workflow: { ...get().workflow, edges } });
       },
     },
   },

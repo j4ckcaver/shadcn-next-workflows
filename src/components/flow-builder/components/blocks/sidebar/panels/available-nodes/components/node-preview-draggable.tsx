@@ -11,7 +11,6 @@ type NodePreviewDraggableProps = Readonly<{
   description: string;
   type: string;
   children?: never;
-  isMobileView: boolean;
   setActivePanel: (
     panel: "node-properties" | "available-nodes" | "none"
   ) => void;
@@ -23,33 +22,27 @@ export function NodePreviewDraggable({
   title,
   description,
   type,
-  isMobileView,
   setActivePanel,
   insertNode,
 }: NodePreviewDraggableProps) {
   const onDragStart = useCallback(
     (e: DragEvent, type: string) => {
-      if (isMobileView) return;
-
+  
       e.dataTransfer.setData(NODE_TYPE_DRAG_DATA_FORMAT, type);
       e.dataTransfer.effectAllowed = "move";
     },
-    [isMobileView]
+    []
   );
 
   const onClick = useCallback(() => {
-    if (!isMobileView) return;
 
     insertNode(type as BuilderNodeType);
     setActivePanel("none");
-  }, [insertNode, isMobileView, setActivePanel, type]);
+  }, [insertNode, setActivePanel, type]);
 
   return (
     <div
-      className={cn(
-        "flex cursor-grab select-none gap-2 border border-card-foreground/10 rounded-xl bg-card p-2.5 shadow-sm transition hover:ring-2 hover:ring-primary/50",
-        isMobileView && "active:opacity-70 active:scale-95"
-      )}
+      className={"flex cursor-grab select-none gap-2 border border-card-foreground/10 rounded-xl bg-card p-2.5 shadow-sm transition hover:ring-2 hover:ring-primary/50"}
       onClick={onClick}
       onDragStart={(e) => onDragStart(e, type)}
       draggable
