@@ -3,6 +3,9 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { QueryClientProvider } from "@/providers/query-client-provider";
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -38,7 +41,11 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Toaster richColors position="bottom-center" duration={2000} />
+          <TooltipProvider delayDuration={200}>
+          <QueryClientProvider >
           {children}
+          </QueryClientProvider>
+          </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>

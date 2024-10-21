@@ -13,31 +13,26 @@ const startNode = createNodeWithDefaultData(BuilderNode.START, {
 const textMessageNode = createNodeWithData<TextMessageNodeData>(
   BuilderNode.TEXT_MESSAGE,
   {
-    channel: "whatsapp",
-    message:
-      "If you like this project, give it a star on GitHub! ⭐️ and connect with me on LinkedIn 🚀. See top right corner or in bottom bar (mobile)",
+    message:"Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     deletable: true,
   },
   { position: { x: 300, y: -140 } }
 );
-const mobileResponsiveInformationTextMessageNode =
+const textMessageNode1 =
   createNodeWithData<TextMessageNodeData>(
     BuilderNode.TEXT_MESSAGE,
     {
-      channel: "telegram",
       message:
-        "This project is mobile responsive! 📱 Try it out on your mobile device! 🚀",
+        "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       deletable: true,
     },
     { position: { x: 300, y: 180 } }
   );
-const edgeDropInformationTextMessageNode =
+const textMessageNode2 =
   createNodeWithData<TextMessageNodeData>(
     BuilderNode.TEXT_MESSAGE,
     {
-      channel: "messenger",
-      message:
-        "Now you can add new nodes by dropping edge on the canvas! Try it out! Drag the edge from this node to any empty space on the canvas. 🎉",
+      message: "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       deletable: true,
     },
     { position: { x: 300, y: 460 } }
@@ -49,8 +44,8 @@ const endNode = createNodeWithDefaultData(BuilderNode.END, {
 const nodes = [
   startNode,
   textMessageNode,
-  mobileResponsiveInformationTextMessageNode,
-  edgeDropInformationTextMessageNode,
+  textMessageNode1,
+  textMessageNode2,
   endNode,
 ];
 
@@ -64,18 +59,18 @@ const edges = [
   {
     id: nanoid(),
     source: startNode.id,
-    target: mobileResponsiveInformationTextMessageNode.id,
+    target: textMessageNode1.id,
     type: "deletable",
   },
   {
     id: nanoid(),
     source: startNode.id,
-    target: edgeDropInformationTextMessageNode.id,
+    target: textMessageNode2.id,
     type: "deletable",
   },
   {
     id: nanoid(),
-    source: mobileResponsiveInformationTextMessageNode.id,
+    source: textMessageNode1.id,
     target: endNode.id,
     type: "deletable",
   },

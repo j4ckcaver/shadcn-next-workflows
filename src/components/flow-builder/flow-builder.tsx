@@ -105,7 +105,7 @@ export const FlowBuilder = () => {
 
   return (
     <>
-      <Card className=" h-14  from-primary/10 p-2 to-transparent rounded-none bg-gradient-to-r w-full  items-center flex justify-between border-b border-card-foreground/10">
+      <Card className=" h-14  from-primary/40 p-2 to-transparent rounded-none bg-gradient-to-r w-full  items-center flex justify-between border-b border-card-foreground/10">
         <div className="inline-flex items-center gap-2">
           <Button
             variant="ghost"

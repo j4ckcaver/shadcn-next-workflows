@@ -30,12 +30,14 @@ interface State {
 }
 
 interface Actions {
+
   actions: {
     saveWorkflow: () => {
       nodes: Node[];
       edges: Edge[];
       tags: Tag[];
     };
+    setWorkflow: (workflow: IFlowState["workflow"]) => void;
     nodes: {
       onNodesChange: (changes: NodeChange[]) => void;
       setNodes: (nodes: Node[]) => void;
@@ -70,7 +72,7 @@ interface Actions {
   };
 }
 
-interface IFlowState {
+export interface IFlowState {
   workflow: {
     id: string;
     name: string;
@@ -116,6 +118,9 @@ export const useFlowStore = create<IFlowState>()((set, get) => ({
     saveWorkflow: () => {
       const { workflow } = get();
       return workflow;
+    },
+    setWorkflow: (workflow: IFlowState["workflow"]) => {
+      set({ workflow });
     },
     sidebar: {
       setActivePanel: (panel: "node-properties" | "available-nodes" | "none") =>
