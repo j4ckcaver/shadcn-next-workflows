@@ -1,8 +1,4 @@
-import {
-  type Node,
-  type NodeProps,
-  Position,
-} from "@xyflow/react";
+import { type Node, type NodeProps, Position } from "@xyflow/react";
 import { nanoid } from "nanoid";
 import { isEmpty } from "radash";
 import { memo, useCallback, useMemo, useState } from "react";

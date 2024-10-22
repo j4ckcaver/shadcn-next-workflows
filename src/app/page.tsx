@@ -18,7 +18,7 @@ export default function Home() {
 
   return (
     <main className="h-full w-full ">
-      <Card className=" h-14  from-primary/40 p-2 to-transparent rounded-none bg-gradient-to-r w-full  items-center flex justify-between border-b border-card-foreground/10">
+      <Card className=" h-14 border-0 from-primary/40 p-2 to-transparent rounded-none bg-gradient-to-r w-full  items-center flex justify-between border-b border-card-foreground/10">
         <div className="inline-flex items-center gap-2">
           <Icon
             icon="hugeicons:workflow-square-03"
@@ -50,7 +50,9 @@ export default function Home() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 2xl:grid-cols-4 gap-4 mt-4 ">
           {!isPending ? (
-            data?.map((workflow) => <CardWorkflow key={workflow.id} workflow={workflow} />)
+            data?.map((workflow) => (
+              <CardWorkflow key={workflow.id} workflow={workflow} />
+            ))
           ) : (
             <Skeleton className="bg-card-foreground/10 min-h-40 p-6 flex flex-col justify-between">
               <Skeleton className="bg-card-foreground/20 w-full h-8" />

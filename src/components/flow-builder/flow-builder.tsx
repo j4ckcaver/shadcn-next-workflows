@@ -33,17 +33,18 @@ const edgeTypes: EdgeTypes = {
 };
 
 export const FlowBuilder = () => {
-  const router = useRouter()
-  const [name, nodes, edges, onNodesChange, onEdgesChange, onConnect] = useFlowStore(
-    useShallow((s) => [
-      s.workflow.name,
-      s.workflow.nodes,
-      s.workflow.edges,
-      s.actions.nodes.onNodesChange,
-      s.actions.edges.onEdgesChange,
-      s.actions.edges.onConnect,
-    ])
-  );
+  const router = useRouter();
+  const [name, nodes, edges, onNodesChange, onEdgesChange, onConnect] =
+    useFlowStore(
+      useShallow((s) => [
+        s.workflow.name,
+        s.workflow.nodes,
+        s.workflow.edges,
+        s.actions.nodes.onNodesChange,
+        s.actions.edges.onEdgesChange,
+        s.actions.edges.onConnect,
+      ])
+    );
   const { getNodes } = useReactFlow();
 
   const {
@@ -105,7 +106,7 @@ export const FlowBuilder = () => {
 
   return (
     <>
-      <Card className=" h-14  from-primary/40 p-2 to-transparent rounded-none bg-gradient-to-r w-full  items-center flex justify-between border-b border-card-foreground/10">
+      <Card className=" h-14 border-0  from-primary/40 p-2 to-transparent rounded-none bg-gradient-to-r w-full  items-center flex justify-between border-b border-card-foreground/10">
         <div className="inline-flex items-center gap-2">
           <Button
             variant="ghost"
@@ -118,9 +119,7 @@ export const FlowBuilder = () => {
               className="size-6 text-card-foreground"
             />
           </Button>
-          <h1 className="text-card-foreground font-bold">
-            {name}
-          </h1>
+          <h1 className="text-card-foreground font-bold">{name}</h1>
         </div>
 
         <div className="inline-flex items-center gap-2">

@@ -1,7 +1,7 @@
 export const getWorflows = async () => {
   const workflows = [
     {
-      id: "WWxPnawgngqfwLthiqYuA",
+      id: "WWxPnawgngqfwLtheiqYuA",
       name: "Default Workflow",
       edges: [
         {
@@ -148,7 +148,7 @@ export const getWorflows = async () => {
       },
     },
     {
-      id: "WWxPnawgngqfwLthiqYuA",
+      id: "WWxPnawgngsqfwLthiqYuA",
       name: "Default Workflow 2",
       edges: [
         {
@@ -161,28 +161,23 @@ export const getWorflows = async () => {
           id: "KD-3Jv0pE55JhPE00X9wz",
           type: "deletable",
           target: "7AcPiwScElLyn__1TiMab",
-          sourceHandle: "1vCbczeh7OyInq6-8AKAk",
           source: "RaF-A7vIuKnIE0NVMW1vp",
         },
         {
           id: "EmiEOz8TDo_7ofaie29HX",
           type: "deletable",
           target: "M2mqHdunHfpGtYGOADXL5",
-          sourceHandle: "-EbqXo5CxQL8C3sX9WArS",
           source: "7AcPiwScElLyn__1TiMab",
         },
         {
           id: "GgIzkJ-AwphJTaGv9UOfk",
           type: "deletable",
           target: "-S758R2QAVkuPe4u-XWPa",
-          sourceHandle: "I81L2TMA_QLw-B5jIsucg",
           source: "M2mqHdunHfpGtYGOADXL5",
         },
         {
           source: "-S758R2QAVkuPe4u-XWPa",
-          sourceHandle: "Nm8031HeJmr8LccD7VKHO",
           target: "efr_iAWzvnnBiRZ6TgxAg",
-          targetHandle: "LhyrM73GvXHJLTYlesvsj",
           id: "xyq2DFDoK923C20MSHvVv",
           type: "deletable",
         },
@@ -190,21 +185,17 @@ export const getWorflows = async () => {
           id: "oOZOIcJohUgO8QAeeMNZt",
           type: "deletable",
           target: "JLmcFnoohnxUgNS3Miw39",
-          sourceHandle: "WzxNd7o2Gg1X2C3etCu6C",
           source: "7AcPiwScElLyn__1TiMab",
         },
         {
           id: "9CoO6feF_ESJGu79q9NBz",
           type: "deletable",
           target: "9DE5AkNUWIliCD0dAeE0d",
-          sourceHandle: "fv6xe1dExRJsgQdAwKKqT",
           source: "JLmcFnoohnxUgNS3Miw39",
         },
         {
           source: "9DE5AkNUWIliCD0dAeE0d",
-          sourceHandle: "TsZK2i0iCecZxDP86UoEi",
           target: "efr_iAWzvnnBiRZ6TgxAg",
-          targetHandle: "LhyrM73GvXHJLTYlesvsj",
           id: "1029TfUJvZqO9gyeHWbIW",
           type: "deletable",
         },
@@ -212,22 +203,72 @@ export const getWorflows = async () => {
           id: "ch4mlrtlXUqV5kcobrfgY",
           type: "deletable",
           target: "BHlPdgQezeH_RFq9pKhwb",
-          sourceHandle: "dGfJi8PzjMW7jfCjcjT-j",
           source: "7AcPiwScElLyn__1TiMab",
         },
         {
           id: "WsH_ytHR_naMZ96RQkq7B",
           type: "deletable",
           target: "M6rJt6koCCZDGqj4Y3Jl8",
-          sourceHandle: "_L-PRzspxg_ZKn2AWxgBK",
           source: "BHlPdgQezeH_RFq9pKhwb",
         },
         {
           source: "M6rJt6koCCZDGqj4Y3Jl8",
-          sourceHandle: "yPmgP5a4O5JVXmenxcWRe",
           target: "efr_iAWzvnnBiRZ6TgxAg",
-          targetHandle: "LhyrM73GvXHJLTYlesvsj",
           id: "VABwiwDBcp_4NorrhXXAF",
+          type: "deletable",
+        },
+        {
+          source: "RaF-A7vIuKnIE0NVMW1vp",
+          target: "7AcPiwScElLyn__1TiMab",
+          id: "bjFgv6z1n_JS_pEGizaAi",
+          type: "deletable",
+        },
+        {
+          source: "JLmcFnoohnxUgNS3Miw39",
+          target: "9DE5AkNUWIliCD0dAeE0d",
+          id: "5ykqOp3an2GX-iLn0S11L",
+          type: "deletable",
+        },
+        {
+          source: "M2mqHdunHfpGtYGOADXL5",
+          target: "-S758R2QAVkuPe4u-XWPa",
+          id: "VZWhW8KvDQRK7w8Blb-oO",
+          type: "deletable",
+        },
+        {
+          source: "BHlPdgQezeH_RFq9pKhwb",
+          target: "M6rJt6koCCZDGqj4Y3Jl8",
+          id: "klJy3Sdi_dKuPEZC3mcvs",
+          type: "deletable",
+        },
+        {
+          source: "-S758R2QAVkuPe4u-XWPa",
+          target: "efr_iAWzvnnBiRZ6TgxAg",
+          id: "eJpfuEoJtfFCQ78JBsNkp",
+          type: "deletable",
+        },
+        {
+          source: "9DE5AkNUWIliCD0dAeE0d",
+          target: "efr_iAWzvnnBiRZ6TgxAg",
+          id: "sp9cXXHK_Ht63njF3ajh8",
+          type: "deletable",
+        },
+        {
+          source: "M6rJt6koCCZDGqj4Y3Jl8",
+          target: "efr_iAWzvnnBiRZ6TgxAg",
+          id: "XTx_N6fDph0Zrk2LExG0b",
+          type: "deletable",
+        },
+        {
+          source: "7AcPiwScElLyn__1TiMab",
+          target: "JLmcFnoohnxUgNS3Miw39",
+          id: "eU2Qr2sihh8xy36LANtpl",
+          type: "deletable",
+        },
+        {
+          source: "7AcPiwScElLyn__1TiMab",
+          target: "M2mqHdunHfpGtYGOADXL5",
+          id: "_iU-4qZCiqq1xbrI08SbS",
           type: "deletable",
         },
       ],
@@ -266,7 +307,7 @@ export const getWorflows = async () => {
             width: 288,
             height: 179,
           },
-          selected: true,
+          selected: false,
           dragging: false,
         },
         {
@@ -427,6 +468,194 @@ export const getWorflows = async () => {
             height: 179,
           },
           dragging: false,
+        },
+      ],
+      tags: [
+        {
+          value: "marketing",
+          label: "Marketing",
+          color: "#ef4444",
+        },
+        {
+          value: "lead",
+          label: "Lead",
+          color: "#eab308",
+        },
+        {
+          value: "new",
+          label: "New",
+          color: "#22c55e",
+        },
+        {
+          value: "option 1",
+          label: "Option 1",
+          color: "#db0000",
+        },
+        {
+          value: "option 2",
+          label: "Option 2",
+          color: "#1e00ff",
+        },
+        {
+          value: "option 3",
+          label: "Option 3",
+          color: "#cecece",
+        },
+      ],
+      sidebar: {
+        active: "available-nodes",
+        panels: {
+          nodeProperties: {
+            selectedNode: null,
+          },
+        },
+      },
+    },
+    {
+      id: "WWxPnawgngqfwLthissqYuA",
+      name: "Default Workflow 3",
+      edges: [
+        {
+          id: "3_ZXXYSrbJOUcTgl2SECz",
+          source: "dS6QyyHc7udfR5kakI2PO",
+          target: "RaF-A7vIuKnIE0NVMW1vp",
+          type: "deletable",
+        },
+        {
+          source: "RaF-A7vIuKnIE0NVMW1vp",
+          target: "M2mqHdunHfpGtYGOADXL5",
+          id: "vfHIZpcAt9vbIHB-2pHip",
+          type: "deletable",
+        },
+        {
+          source: "dS6QyyHc7udfR5kakI2PO",
+          target: "JLmcFnoohnxUgNS3Miw39",
+          id: "Qz4osD9iBltaIPqXnBq_I",
+          type: "deletable",
+        },
+        {
+          id: "Oa1W70rgxNN4shNVCSfew",
+          type: "deletable",
+          target: "mUs0eeHWz-UANrvjOkti8",
+          source: "JLmcFnoohnxUgNS3Miw39",
+        },
+        {
+          source: "mUs0eeHWz-UANrvjOkti8",
+          target: "efr_iAWzvnnBiRZ6TgxAg",
+          id: "2faU_pUunBmOS-qhzJ8S0",
+          type: "deletable",
+        },
+        {
+          source: "M2mqHdunHfpGtYGOADXL5",
+          target: "efr_iAWzvnnBiRZ6TgxAg",
+          id: "Z3cWlOujnrvi7AxnHYzHO",
+          type: "deletable",
+        },
+      ],
+      nodes: [
+        {
+          id: "dS6QyyHc7udfR5kakI2PO",
+          type: "start",
+          data: {
+            label: "Start",
+            deletable: false,
+          },
+          position: {
+            x: -80,
+            y: 256,
+          },
+          deletable: false,
+          measured: {
+            width: 96,
+            height: 42,
+          },
+          selected: false,
+          dragging: false,
+        },
+        {
+          id: "RaF-A7vIuKnIE0NVMW1vp",
+          type: "text-message",
+          data: {
+            message: "Welcome",
+            deletable: true,
+          },
+          position: {
+            x: 368,
+            y: -32,
+          },
+          measured: {
+            width: 288,
+            height: 179,
+          },
+          selected: false,
+          dragging: false,
+        },
+        {
+          id: "efr_iAWzvnnBiRZ6TgxAg",
+          type: "end",
+          data: {
+            label: "End",
+            deletable: true,
+          },
+          position: {
+            x: 2016,
+            y: 368,
+          },
+          measured: {
+            width: 90,
+            height: 42,
+          },
+          selected: false,
+          dragging: false,
+        },
+        {
+          id: "M2mqHdunHfpGtYGOADXL5",
+          type: "tags",
+          data: {
+            tags: ["option 1"],
+          },
+          position: {
+            x: 1104,
+            y: 32,
+          },
+          selected: false,
+          measured: {
+            width: 288,
+            height: 186,
+          },
+          dragging: false,
+        },
+        {
+          id: "JLmcFnoohnxUgNS3Miw39",
+          type: "tags",
+          data: {
+            tags: ["option 2"],
+          },
+          position: {
+            x: 1120,
+            y: 272,
+          },
+          selected: false,
+          measured: {
+            width: 288,
+            height: 186,
+          },
+        },
+        {
+          id: "mUs0eeHWz-UANrvjOkti8",
+          type: "text-message",
+          data: {
+            message: "",
+          },
+          position: {
+            x: 1616,
+            y: 432,
+          },
+          selected: false,
+          measured: {
+            width: 288,
+            height: 179,
+          },
         },
       ],
       tags: [

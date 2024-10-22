@@ -8,7 +8,6 @@ import { useShallow } from "zustand/shallow";
 import { BuilderNodeType } from "@/components/flow-builder/components/blocks/types";
 
 export function useAddNodeOnEdgeDrop() {
-
   const [
     dropPosition,
     incomingNodeMetadetails,
@@ -31,7 +30,6 @@ export function useAddNodeOnEdgeDrop() {
   const insertNode = useInsertNode();
 
   const floatingMenuWrapperRef = useRef<HTMLDivElement>(null);
-
 
   const handleAddConnectedNode = useCallback(
     (type: BuilderNodeType) => {
@@ -89,14 +87,14 @@ export function useAddNodeOnEdgeDrop() {
             (clientX > _floatingMenuWrapperRect.width + _anchorPositionPadding
               ? _floatingMenuWrapperRect.width - _anchorPositionPadding
               : clientX < _anchorPositionPadding
-                ? _anchorPositionPadding
-                : clientX) - _floatingMenuWrapperRect.x,
+              ? _anchorPositionPadding
+              : clientX) - _floatingMenuWrapperRect.x,
           y:
             clientY > _floatingMenuWrapperRect.height + _anchorPositionPadding
               ? _floatingMenuWrapperRect.height - _anchorPositionPadding
               : clientY < _anchorPositionPadding
-                ? _anchorPositionPadding
-                : clientY - _floatingMenuWrapperRect.y,
+              ? _anchorPositionPadding
+              : clientY - _floatingMenuWrapperRect.y,
         };
 
         setAnchorPosition(_addNodeFloatingMenuAnchorPosition);
