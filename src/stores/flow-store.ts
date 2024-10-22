@@ -1,5 +1,4 @@
 import { BuilderNodeType } from "@/components/flow-builder/components/blocks/types";
-import { defaultEdges, defaultNodes } from "@/contants/default-nodes-edges";
 import { nanoid } from "nanoid";
 import {
   addEdge,
@@ -18,7 +17,6 @@ import { produce } from "immer";
 interface State {
   nodes: Node[];
   edges: Edge[];
-  tags: Tag[];
   sidebar: {
     active: "node-properties" | "available-nodes" | "none";
     panels: {
@@ -32,9 +30,10 @@ interface State {
 interface Actions {
   actions: {
     saveWorkflow: () => {
+      id: string;
+      name: string;
       nodes: Node[];
       edges: Edge[];
-      tags: Tag[];
     };
     setWorkflow: (workflow: IFlowState["workflow"]) => void;
     nodes: {
@@ -72,6 +71,7 @@ interface Actions {
 }
 
 export interface IFlowState {
+  tags: Tag[];
   workflow: {
     id: string;
     name: string;
@@ -83,6 +83,11 @@ const TAGS = [
   {
     value: "marketing",
     label: "Marketing",
+    color: "#ef4444",
+  },
+  {
+    value: "suporte",
+    label: "Suporte",
     color: "#ef4444",
   },
   {
@@ -98,12 +103,12 @@ const TAGS = [
 ] satisfies Tag[];
 
 export const useFlowStore = create<IFlowState>()((set, get) => ({
+  tags: TAGS,
   workflow: {
     id: nanoid(),
-    name: "Default Workflow",
-    edges: defaultEdges,
-    nodes: defaultNodes,
-    tags: TAGS,
+    name: "",
+    edges: [],
+    nodes: [],
     sidebar: {
       active: "none",
       panels: {
@@ -116,10 +121,28 @@ export const useFlowStore = create<IFlowState>()((set, get) => ({
   actions: {
     saveWorkflow: () => {
       const { workflow } = get();
-      return workflow;
+      set({ workflow });
+      return {
+        id: workflow.id,
+        name: workflow.name,
+        nodes: workflow.nodes,
+        edges: workflow.edges.map((edge) => {
+          return {
+            id: edge.id,
+            source: edge.source,
+            target: edge.target,
+            type: edge.type,
+          };
+        }),
+      };
     },
     setWorkflow: (workflow: IFlowState["workflow"]) => {
-      set({ workflow });
+      set((state) => ({
+        workflow: {
+          ...state.workflow,
+          ...workflow,
+        },
+      }))
     },
     sidebar: {
       setActivePanel: (panel: "node-properties" | "available-nodes" | "none") =>
@@ -170,29 +193,20 @@ export const useFlowStore = create<IFlowState>()((set, get) => ({
         },
         tags: {
           setTags: (tags: Tag[]) =>
-            set({ workflow: { ...get().workflow, tags } }),
+            set({ tags }),
           createTag: (tag: Tag) =>
             set((state) => ({
-              workflow: {
-                ...state.workflow,
-                tags: [...state.workflow.tags, tag],
-              },
+              tags: [...state.tags, tag],
             })),
           updateTag: (tag: Tag, newTag: Tag) =>
             set((state) => ({
-              workflow: {
-                ...state.workflow,
-                tags: state.workflow.tags.map((f) =>
+                tags: state.tags.map((f) =>
                   f.value === tag.value ? newTag : f
                 ),
-              },
             })),
           deleteTag: (tag: Tag) =>
             set((state) => ({
-              workflow: {
-                ...state.workflow,
-                tags: state.workflow.tags.filter((f) => f.value !== tag.value),
-              },
+                tags: state.tags.filter((f) => f.value !== tag.value),
             })),
         },
       },

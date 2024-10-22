@@ -1,7 +1,4 @@
 import { BuilderNodeType } from "@/components/flow-builder/components/blocks/types";
-
-import { Input } from "@/components/ui/input";
-
 import { useMemo } from "react";
 import { TagsNodeData } from "../../../../nodes/tags-node/tags.node";
 import { TagsCombobox } from "@/components/flow-builder/components/ui/tags-combobox";

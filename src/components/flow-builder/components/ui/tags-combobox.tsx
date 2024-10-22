@@ -68,7 +68,7 @@ export function TagsCombobox({
 }) {
   const [tags, updateTag, deleteTag, createTag] = useFlowStore(
     useShallow((s) => [
-      s.workflow.tags,
+      s.tags,
       s.actions.sidebar.panels.tags.updateTag,
       s.actions.sidebar.panels.tags.deleteTag,
       s.actions.sidebar.panels.tags.createTag,
@@ -79,8 +79,13 @@ export function TagsCombobox({
   const [openDialog, setOpenDialog] = React.useState(false);
   const [inputValue, setInputValue] = React.useState<string>("");
   const [selectedValues, setSelectedValues] = React.useState<Tag[]>(
-    tags.filter((t) => value.includes(t.value))
+    value.map((t) => tags.find((f) => f.value === t) || {value: t, label: t[0].toUpperCase() + t.substring(1), color: "#cecece"})
   );
+
+  React.useEffect(() => {
+    setSelectedValues(value.map((t) => tags.find((f) => f.value === t) || {value: t, label: t[0].toUpperCase() + t.substring(1), color: "#cecece"}));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
 
   const handleCreateTag = (name: string) => {
     const newTag = {
@@ -127,6 +132,16 @@ export function TagsCombobox({
     setOpenCombobox(value);
   };
 
+  const mergeArraysUnique = (arr1: Tag[], arr2 : Tag[]) => {
+    const map = new Map();
+
+    arr1.concat(arr2).forEach(item => {
+        map.set(item.value, item); 
+    });
+
+    return Array.from(map.values());
+};
+
   return (
     <div className="w-full mb-8">
       <Popover open={openCombobox} onOpenChange={onComboboxOpenChange}>
@@ -158,7 +173,7 @@ export function TagsCombobox({
             />
             <CommandList>
               <CommandGroup className="max-h-[145px] overflow-auto">
-                {tags.map((tag) => {
+                {mergeArraysUnique(tags, selectedValues).map((tag) => {
                   const isActive = selectedValues.includes(tag);
                   return (
                     <CommandItem
@@ -219,7 +234,7 @@ export function TagsCombobox({
             </DialogDescription>
           </DialogHeader>
           <div className="-mx-6 flex-1 overflow-y-scroll px-6 py-2">
-            {tags.map((tag) => {
+            {mergeArraysUnique(tags, selectedValues).map((tag) => {
               return (
                 <DialogListItem
                   key={tag.value}

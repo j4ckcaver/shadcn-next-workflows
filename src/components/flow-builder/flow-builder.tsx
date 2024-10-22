@@ -122,10 +122,10 @@ export const FlowBuilder = () => {
           <h1 className="text-card-foreground font-bold">{name}</h1>
         </div>
 
-        <div className="inline-flex items-center gap-2">
+        {name !== "" && <div className="inline-flex items-center gap-2">
           <ModeToggle />
           <SaveFlowButton />
-        </div>
+        </div>}
       </Card>
       <div className="relative w-full h-[94vh]">
         <ReactFlow

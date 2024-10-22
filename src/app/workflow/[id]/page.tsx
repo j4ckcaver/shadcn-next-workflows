@@ -1,20 +1,9 @@
-"use client";
 
-import { ReactFlowProvider } from "@xyflow/react";
-import { FlowBuilder } from "@/components/flow-builder/flow-builder";
-import { SidebarModule } from "@/components/flow-builder/components/blocks/sidebar/sidebar-module";
+import { getWorkflow } from "@/services/get-workflow";
+import { FlowBuilderPage } from "../_components/flow-builder";
 
-export default function Workflow() {
-  return (
-    <ReactFlowProvider>
-      <div className="flex flex-col  h-dvh">
-        <div className="flex grow divide-x divide-card-foreground/10">
-          <div className="grow bg-card md:bg-transparent">
-            <FlowBuilder />
-          </div>
-          <SidebarModule />
-        </div>
-      </div>
-    </ReactFlowProvider>
-  );
+export default async function Workflow({ params }: { params: { id: string } }) {
+const workflow = await getWorkflow(params.id);
+
+  return <FlowBuilderPage workflow={workflow} />
 }

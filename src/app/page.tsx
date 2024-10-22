@@ -5,15 +5,15 @@ import { ModeToggle } from "@/components/ui/button-theme-toggle";
 import { Card } from "@/components/ui/card";
 import { CardWorkflow } from "@/components/ui/card-workflow";
 import { Skeleton } from "@/components/ui/skeleton";
+import { getWorkflows } from "@/services/get-workflows";
 
-import { getWorflows } from "@/contants/sample-workflows";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useQuery } from "@tanstack/react-query";
 
 export default function Home() {
   const { isPending, data } = useQuery({
     queryKey: ["workflows"],
-    queryFn: () => getWorflows(),
+    queryFn: () => getWorkflows(),
   });
 
   return (

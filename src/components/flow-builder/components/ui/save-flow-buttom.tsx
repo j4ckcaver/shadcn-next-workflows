@@ -10,9 +10,11 @@ export const SaveFlowButton = () => {
     useShallow((s) => [s.actions.saveWorkflow])
   );
 
+ 
+
   const [isValidating, validateFlow] = useFlowValidator((isValid) => {
     if (isValid) {
-      console.log(saveWorkflow());
+      saveWorkflow();
       toast.success("Flow is valid", {
         description: "You can now proceed to the next step",
         dismissible: true,
