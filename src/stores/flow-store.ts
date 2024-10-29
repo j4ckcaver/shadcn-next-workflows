@@ -39,11 +39,13 @@ interface Actions {
     nodes: {
       onNodesChange: (changes: NodeChange[]) => void;
       setNodes: (nodes: Node[]) => void;
+      deleteNode: (node: Node) => void;
     };
     edges: {
       onEdgesChange: (changes: EdgeChange[]) => void;
       onConnect: (connection: Connection) => void;
       setEdges: (edges: Edge[]) => void;
+      deleteEdge: (edge: Edge) => void;
     };
     sidebar: {
       setActivePanel: (
@@ -86,8 +88,8 @@ const TAGS = [
     color: "#ef4444",
   },
   {
-    value: "suporte",
-    label: "Suporte",
+    value: "support",
+    label: "Support",
     color: "#ef4444",
   },
   {
@@ -122,19 +124,7 @@ export const useFlowStore = create<IFlowState>()((set, get) => ({
     saveWorkflow: () => {
       const { workflow } = get();
       set({ workflow });
-      return {
-        id: workflow.id,
-        name: workflow.name,
-        nodes: workflow.nodes,
-        edges: workflow.edges.map((edge) => {
-          return {
-            id: edge.id,
-            source: edge.source,
-            target: edge.target,
-            type: edge.type,
-          };
-        }),
-      };
+      return workflow;
     },
     setWorkflow: (workflow: IFlowState["workflow"]) => {
       set((state) => ({
@@ -142,7 +132,7 @@ export const useFlowStore = create<IFlowState>()((set, get) => ({
           ...state.workflow,
           ...workflow,
         },
-      }))
+      }));
     },
     sidebar: {
       setActivePanel: (panel: "node-properties" | "available-nodes" | "none") =>
@@ -192,21 +182,18 @@ export const useFlowStore = create<IFlowState>()((set, get) => ({
             })),
         },
         tags: {
-          setTags: (tags: Tag[]) =>
-            set({ tags }),
+          setTags: (tags: Tag[]) => set({ tags }),
           createTag: (tag: Tag) =>
             set((state) => ({
               tags: [...state.tags, tag],
             })),
           updateTag: (tag: Tag, newTag: Tag) =>
             set((state) => ({
-                tags: state.tags.map((f) =>
-                  f.value === tag.value ? newTag : f
-                ),
+              tags: state.tags.map((f) => (f.value === tag.value ? newTag : f)),
             })),
           deleteTag: (tag: Tag) =>
             set((state) => ({
-                tags: state.tags.filter((f) => f.value !== tag.value),
+              tags: state.tags.filter((f) => f.value !== tag.value),
             })),
         },
       },
@@ -226,6 +213,14 @@ export const useFlowStore = create<IFlowState>()((set, get) => ({
       },
       setNodes: (nodes) => {
         set({ workflow: { ...get().workflow, nodes } });
+      },
+      deleteNode: (node: Node) => {
+        set((state) => ({
+          workflow: {
+            ...state.workflow,
+            nodes: state.workflow.nodes.filter((n) => n.id !== node.id),
+          },
+        }));
       },
     },
     edges: {
@@ -252,6 +247,14 @@ export const useFlowStore = create<IFlowState>()((set, get) => ({
       },
       setEdges: (edges) => {
         set({ workflow: { ...get().workflow, edges } });
+      },
+      deleteEdge: (edge: Edge) => {
+        set((state) => ({
+          workflow: {
+            ...state.workflow,
+            edges: state.workflow.edges.filter((e) => e.id !== edge.id),
+          },
+        }));
       },
     },
   },
