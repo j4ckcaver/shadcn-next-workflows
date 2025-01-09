@@ -31,7 +31,7 @@ export function FlowContextMenu({ children }: FlowContextMenuProps) {
   );
   
   const [copiedNode, setCopiedNode] = useState<Node | null>(null);
-  const [contextMenuType, setContextMenuType] = useState<'canvas' | 'node'>('canvas');
+  const [contextMenuType, setContextMenuType] = useState<'canvas' | 'node' | 'end-node'>('canvas');
   const [selectedNode, setSelectedNode] = useState<Node | null>(null);
   const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -65,7 +65,9 @@ export function FlowContextMenu({ children }: FlowContextMenuProps) {
   }, [getNodes]);
 
   const handleDeleteSelected = useCallback(() => {
-    if (contextMenuType === 'node' && selectedNode) {
+    if (contextMenuType === 'end-node' && selectedNode) {
+      deleteNode(selectedNode);
+    } else if (contextMenuType === 'node' && selectedNode) {
       deleteNode(selectedNode);
     } else {
       const selectedNodes = getSelectedNodes();
@@ -172,7 +174,10 @@ export function FlowContextMenu({ children }: FlowContextMenuProps) {
     if (nodeElement) {
       const nodeId = nodeElement.getAttribute('data-id');
       const node = getNodes().find(n => n.id === nodeId);
-      if (node?.type !== BuilderNode.START && node?.type !== BuilderNode.END) {
+      if (node?.type === BuilderNode.END) {
+        setContextMenuType('end-node');
+        setSelectedNode(node);
+      } else if (node?.type !== BuilderNode.START) {
         setNodes((nodes) =>
           nodes.map((n) => ({
             ...n,
@@ -387,6 +392,20 @@ export function FlowContextMenu({ children }: FlowContextMenuProps) {
                   </button>
                 </>
               )}
+            </div>
+          ) : contextMenuType === 'end-node' ? (
+            <div className="space-y-1">
+              <button
+                className={cn(
+                  "relative flex w-full cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none text-red-600",
+                  "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                )}
+                onClick={handleDeleteSelected}
+              >
+                <Icon icon="mynaui:trash" className="mr-2 h-4 w-4" />
+                Delete End Node
+                <span className="ml-auto text-xs text-muted-foreground">Del</span>
+              </button>
             </div>
           ) : (
             <div className="space-y-1">
