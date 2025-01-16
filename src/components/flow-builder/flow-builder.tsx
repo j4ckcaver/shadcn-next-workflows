@@ -6,6 +6,7 @@ import {
   type NodeChange,
   ReactFlow,
   useReactFlow,
+  SelectionMode,
 } from "@xyflow/react";
 import { useCallback } from "react";
 import { useDeleteKeyCode } from "@/hooks/use-delete-key-code";
@@ -21,12 +22,14 @@ import AddNodeFloatingMenu from "./components/add-node-floating-menu/add-node-fl
 import { useFlowStore } from "@/stores/flow-store";
 import { useShallow } from "zustand/shallow";
 import { NODE_TYPES } from "./components/blocks";
+import { BuilderNode } from "./components/blocks/types";
 import { Card } from "../ui/card";
 import { SaveFlowButton } from "./components/ui/save-flow-buttom";
 import { ModeToggle } from "../ui/button-theme-toggle";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
+import { FlowContextMenu } from "./components/context-menu/flow-context-menu";
 
 const edgeTypes: EdgeTypes = {
   deletable: CustomDeletableEdge,
@@ -34,17 +37,27 @@ const edgeTypes: EdgeTypes = {
 
 export const FlowBuilder = () => {
   const router = useRouter();
-  const [name, nodes, edges, onNodesChange, onEdgesChange, onConnect] =
-    useFlowStore(
-      useShallow((s) => [
-        s.workflow.name,
-        s.workflow.nodes,
-        s.workflow.edges,
-        s.actions.nodes.onNodesChange,
-        s.actions.edges.onEdgesChange,
-        s.actions.edges.onConnect,
-      ])
-    );
+  const [
+    name,
+    nodes,
+    edges,
+    onNodesChange,
+    onEdgesChange,
+    onConnect,
+    deleteNode,
+    deleteEdge
+  ] = useFlowStore(
+    useShallow((s) => [
+      s.workflow.name,
+      s.workflow.nodes,
+      s.workflow.edges,
+      s.actions.nodes.onNodesChange,
+      s.actions.edges.onEdgesChange,
+      s.actions.edges.onConnect,
+      s.actions.nodes.deleteNode,
+      s.actions.edges.deleteEdge,
+    ])
+  );
   const { getNodes } = useReactFlow();
 
   const {
@@ -82,7 +95,17 @@ export const FlowBuilder = () => {
 
   const handleNodesChange = useCallback(
     (changes: NodeChange[]) => {
-      changes.forEach((change) => {
+      const filteredChanges = changes.map(change => {
+        if (change.type === 'select') {
+          const node = nodes.find(n => n.id === change.id);
+          if (node && (node.type === BuilderNode.START || node.type === BuilderNode.END)) {
+            return { ...change, selected: false };
+          }
+        }
+        return change;
+      });
+
+      filteredChanges.forEach((change) => {
         if (change.type === "dimensions") {
           const node = getNodes().find((n) => n.id === change.id);
           if (node) {
@@ -94,15 +117,29 @@ export const FlowBuilder = () => {
           handleAutoAdjustNodeAfterNodeMeasured(change.item.id);
         }
       });
-      onNodesChange(changes);
+      onNodesChange(filteredChanges);
     },
     [
       autoAdjustNode,
       getNodes,
       handleAutoAdjustNodeAfterNodeMeasured,
       onNodesChange,
+      nodes,
     ]
   );
+
+  const handleDeleteElements = useCallback(() => {
+    const selectedNodes = nodes.filter(
+      (node) => 
+        node.selected && 
+        node.type !== BuilderNode.START && 
+        node.type !== BuilderNode.END
+    );
+    const selectedEdges = edges.filter((edge) => edge.selected);
+    
+    selectedNodes.forEach((node) => deleteNode(node));
+    selectedEdges.forEach((edge) => deleteEdge(edge));
+  }, [nodes, edges, deleteNode, deleteEdge]);
 
   return (
     <>
@@ -128,33 +165,38 @@ export const FlowBuilder = () => {
         </div>}
       </Card>
       <div className="relative w-full h-[94vh]">
-        <ReactFlow
-          proOptions={{ hideAttribution: true }}
-          onInit={({ fitView }) => fitView().then()}
-          nodeTypes={NODE_TYPES}
-          nodes={nodes}
-          onNodesChange={handleNodesChange}
-          edgeTypes={edgeTypes}
-          edges={edges}
-          onEdgesChange={onEdgesChange}
-          onConnect={onConnect}
-          onConnectEnd={handleOnEdgeDropConnectEnd}
-          onDrop={onDrop}
-          onDragOver={onDragOver}
-          onNodeDragStop={(_, node) => {
-            autoAdjustNode(node);
-          }}
-          onNodesDelete={onNodesDelete}
-          isValidConnection={isValidConnection}
-          multiSelectionKeyCode={null}
-          deleteKeyCode={deleteKeyCode}
-          snapGrid={[16, 16]}
-          snapToGrid
-          fitView
-        >
-          <Background gap={24} />
-          <CustomControls />
-        </ReactFlow>
+        <FlowContextMenu>
+          <ReactFlow
+            proOptions={{ hideAttribution: true }}
+            onInit={({ fitView }) => fitView().then()}
+            nodeTypes={NODE_TYPES}
+            nodes={nodes}
+            onNodesChange={handleNodesChange}
+            edgeTypes={edgeTypes}
+            edges={edges}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            onConnectEnd={handleOnEdgeDropConnectEnd}
+            onDrop={onDrop}
+            onDragOver={onDragOver}
+            onNodeDragStop={(_, node) => {
+              autoAdjustNode(node);
+            }}
+            onNodesDelete={handleDeleteElements}
+            isValidConnection={isValidConnection}
+            selectionMode={SelectionMode.Full}
+            multiSelectionKeyCode="Control"
+            selectionOnDrag={true}
+            selectionKeyCode={null}
+            deleteKeyCode={deleteKeyCode}
+            snapGrid={[16, 16]}
+            snapToGrid
+            fitView
+          >
+            <Background gap={24} />
+            <CustomControls />
+          </ReactFlow>
+        </FlowContextMenu>
       </div>
       <div
         className={cn(
