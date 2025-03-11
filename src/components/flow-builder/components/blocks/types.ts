@@ -4,6 +4,7 @@ export enum BuilderNode {
   START = "start",
   END = "end",
   TEXT_MESSAGE = "text-message",
+  LOG_MESSAGE = "log-message",
   CONDITIONAL_PATH = "conditional-path",
   TAGS = "tags",
   MENU = "menu",

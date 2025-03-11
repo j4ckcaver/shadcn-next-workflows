@@ -134,7 +134,7 @@ const NodeCardFooter = React.forwardRef<HTMLDivElement, NodeCardFooterProps>(
   ({ className, nodeId, ...props }, ref) => (
     <div
       ref={ref}
-      className={`bg-card-foreground/10 overflow-clip rounded-b-md px-4 py-2 text-[10px] text-card-foreground/50 ${className}`}
+      className={`bg-card-foreground/10 overflow-clip rounded-b-sm px-4 py-2 text-[10px] text-card-foreground/50 ${className}`}
       {...props}
     >
       Node: <span className="font-semibold">#{nodeId}</span>
