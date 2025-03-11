@@ -81,28 +81,7 @@ export interface IFlowState {
   actions: Actions["actions"];
 }
 
-const TAGS = [
-  {
-    value: "marketing",
-    label: "Marketing",
-    color: "#ef4444",
-  },
-  {
-    value: "support",
-    label: "Support",
-    color: "#ef4444",
-  },
-  {
-    value: "lead",
-    label: "Lead",
-    color: "#eab308",
-  },
-  {
-    value: "new",
-    label: "New",
-    color: "#22c55e",
-  },
-] satisfies Tag[];
+const TAGS = [] satisfies Tag[];
 
 export const useFlowStore = create<IFlowState>()((set, get) => ({
   tags: TAGS,
