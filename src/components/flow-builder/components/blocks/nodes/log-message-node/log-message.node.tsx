@@ -103,7 +103,7 @@ export const metadata: RegisterNodeMetadata<LogMessageNodeData> = {
   type: NODE_TYPE,
   node: memo(LogMessageNode),
   detail: {
-    icon: "mynaui:message-solid",
+    icon: "mdi:console",
     title: "Log Message",
     description:
       "Send a log message to the user using different messaging platforms like WhatsApp, Messenger, etc.",
