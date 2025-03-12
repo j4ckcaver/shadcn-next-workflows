@@ -6,7 +6,63 @@ export const getWorkflow = async (
   // TODO: Get data from API
   return {
     id: "1",
-    name: "Initial Workflow",
+    name: "Email Marketing Automation",
+    description: "Send personalized emails based on customer activity",
+    status: "active",
+    createdAt: "2025-02-15T09:12:33",
+    updatedAt: "2025-03-10T16:24:12",
+    lastRunAt: "2025-03-11T14:30:00",
+    nextRunAt: "2025-03-13T10:00:00",
+    frequency: "Daily at 10:00",
+    frequencySettings: {
+      time: "10:00",
+      days: ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    },
+    successRate: 98.5,
+    averageRuntime: 125000, // 2m 5s
+    isRunning: false,
+    progress: 0,
+    lastError: null,
+    executionHistory: [
+      {
+        id: "run-001",
+        startTime: "2025-03-11T14:30:00",
+        endTime: "2025-03-11T14:32:15",
+        status: "success",
+      },
+      {
+        id: "run-002",
+        startTime: "2025-03-10T10:00:00",
+        endTime: "2025-03-10T10:02:23",
+        status: "success",
+      },
+      {
+        id: "run-003",
+        startTime: "2025-03-09T10:00:00",
+        endTime: "2025-03-09T10:01:45",
+        status: "success",
+      },
+    ],
+    createdBy: "admin@company.com",
+    owner: "marketing@company.com",
+    version: "1.2.0",
+    priority: "high",
+    timeout: 600000, // 10 minutes
+    retryPolicy: {
+      maxAttempts: 3,
+      backoffMultiplier: 1.5,
+    },
+    tags: ["marketing", "email", "automation"],
+    variables: {
+      emailSubject: "Weekly Newsletter",
+      emailSender: "marketing@company.com",
+      customerSegments: ["active", "new", "vip"],
+    },
+    isTemplate: false,
+    permissions: {
+      viewUsers: ["team@company.com", "analytics@company.com"],
+      editUsers: ["admin@company.com", "marketing@company.com"],
+    },
     edges: [
       {
         id: "27Uqm_guQgYOw81_ibdSu",
@@ -173,22 +229,6 @@ export const getWorkflow = async (
         },
       },
       {
-        id: "8p15_Y66luCEbFS_J7emircO",
-        type: "log-message",
-        position: {
-          x: 392,
-          y: 20,
-        },
-        deletable: false,
-        data: {
-          message: "test",
-        },
-        measured: {
-          width: 288,
-          height: 199,
-        },
-      },
-      {
         id: "9BP0qBxoQ70DKRq8gC1GX",
         type: "tags",
         position: {
@@ -206,7 +246,7 @@ export const getWorkflow = async (
       },
       {
         id: "F1zbrjG2vqeDEFElu1478",
-        type: "text-message",
+        type: "log-message",
         position: {
           x: 1024,
           y: 304,
