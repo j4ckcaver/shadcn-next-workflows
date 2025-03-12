@@ -152,7 +152,7 @@ export const FlowBuilder = () => {
             onClick={() => router.back()}
           >
             <Icon
-              icon="ion:arrow-back-outline"
+              icon="mdi:chevron-left"
               className="size-6 text-card-foreground"
             />
           </Button>
@@ -163,6 +163,7 @@ export const FlowBuilder = () => {
           <ModeToggle />
           <SaveFlowButton />
         </div>}
+
       </Card>
       <div className="relative w-full h-[94vh]">
         <FlowContextMenu>
