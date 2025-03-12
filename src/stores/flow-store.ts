@@ -19,6 +19,7 @@ interface State {
   edges: Edge[];
   sidebar: {
     active: "node-properties" | "available-nodes" | "none";
+    isShowing: boolean;
     panels: {
       nodeProperties: {
         selectedNode: { id: string; type: BuilderNodeType } | null | undefined;
@@ -48,6 +49,7 @@ interface Actions {
       deleteEdge: (edge: Edge) => void;
     };
     sidebar: {
+      setShowPanel: (isShowing: boolean) => void;
       setActivePanel: (
         panel: "node-properties" | "available-nodes" | "none"
       ) => void;
@@ -92,6 +94,7 @@ export const useFlowStore = create<IFlowState>()((set, get) => ({
     nodes: [],
     sidebar: {
       active: "none",
+      isShowing: true,
       panels: {
         nodeProperties: {
           selectedNode: null,
@@ -114,6 +117,16 @@ export const useFlowStore = create<IFlowState>()((set, get) => ({
       }));
     },
     sidebar: {
+      setShowPanel: (isShowing: boolean) =>
+        set((state) => ({
+          workflow: {
+            ...state.workflow,
+            sidebar: {
+              ...state.workflow.sidebar,
+              isShowing: isShowing,
+            },
+          },
+        })),
       setActivePanel: (panel: "node-properties" | "available-nodes" | "none") =>
         set((state) => ({
           workflow: {
@@ -128,6 +141,7 @@ export const useFlowStore = create<IFlowState>()((set, get) => ({
             sidebar: {
               ...state.workflow.sidebar,
               active: "node-properties",
+              isShowing: true,
               panels: {
                 ...state.workflow.sidebar.panels,
                 nodeProperties: {
