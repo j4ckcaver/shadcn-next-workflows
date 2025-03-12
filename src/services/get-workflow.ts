@@ -47,6 +47,7 @@ export const getWorkflow = async (
     ],
     sidebar: {
       active: "available-nodes",
+      isShowing: true,
       panels: {
         nodeProperties: {
           selectedNode: null,

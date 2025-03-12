@@ -25,10 +25,6 @@ export function DesktopSidebarFragment({
     if (activePanel === "none") {
       setActivePanel("available-nodes");
     }
-
-    if (isShowing === undefined) {
-      setShowPanel(true);
-    }
   }, [activePanel, setActivePanel, isShowing, setShowPanel]);
 
   return (
