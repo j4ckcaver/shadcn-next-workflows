@@ -46,6 +46,7 @@ export const getWorkflows = async (): Promise<IFlowState["workflow"][]> => {
       ],
       sidebar: {
         active: "available-nodes",
+        isShowing: true,
         panels: {
           nodeProperties: {
             selectedNode: null,
