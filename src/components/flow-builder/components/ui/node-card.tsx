@@ -13,7 +13,7 @@ const NodeCard = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "w-72 border border-card-foreground/10 rounded-xl bg-card/50 shadow-sm backdrop-blur-xl transition divide-y divide-card-foreground/10 data-[selected=true]:border-primary",
+      "w-72 border border-card-foreground/10 rounded-t-xl rounded-b-md bg-card/50 shadow-sm backdrop-blur-xl transition divide-y divide-card-foreground/10 data-[selected=true]:border-primary",
       className
     )}
     {...props}
@@ -134,7 +134,7 @@ const NodeCardFooter = React.forwardRef<HTMLDivElement, NodeCardFooterProps>(
   ({ className, nodeId, ...props }, ref) => (
     <div
       ref={ref}
-      className={`bg-card-foreground/10 overflow-clip rounded-b-sm px-4 py-2 text-[10px] text-card-foreground/50 ${className}`}
+      className={`bg-card-foreground/10 overflow-clip rounded-b-md px-4 py-2 text-[10px] text-card-foreground/50 ${className}`}
       {...props}
     >
       Node: <span className="font-semibold">#{nodeId}</span>

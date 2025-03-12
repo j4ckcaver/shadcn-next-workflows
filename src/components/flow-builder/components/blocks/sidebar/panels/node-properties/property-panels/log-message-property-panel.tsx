@@ -33,6 +33,7 @@ export default function LogMessageNodePropertyPanel({
           />
         </div>
       </div>
+      <p>{JSON.stringify(data)}</p>
     </div>
   );
 }
