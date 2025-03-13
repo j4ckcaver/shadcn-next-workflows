@@ -27,6 +27,7 @@ export const HeaderGradientColors = {
   rose: "from-rose-700",
   sky: "from-sky-700",
   gray: "from-gray-700",
+  netural: "from-neutral-700",
   slate: "from-slate-700",
 };
 

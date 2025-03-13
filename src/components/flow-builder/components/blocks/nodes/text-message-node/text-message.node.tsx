@@ -39,6 +39,7 @@ export function TextMessageNode({
   const [showNodePropertiesOf] = useFlowStore(
     useShallow((s) => [s.actions.sidebar.showNodePropertiesOf])
   );
+
   const [sourceHandleId] = useState<string>(nanoid());
 
   const deleteNode = useDeleteNode();

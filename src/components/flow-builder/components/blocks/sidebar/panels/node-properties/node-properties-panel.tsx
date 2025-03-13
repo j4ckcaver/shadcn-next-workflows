@@ -48,8 +48,11 @@ export function NodePropertiesPanel() {
   return (
     <SidebarPanelWrapper>
       <div className="h-80 w-80 flex flex-col">
-        <SidebarPanelHeading className="shrink-0">
-          <HeaderWithIcon icon="mynaui:layers-three" title="Nodes in Flow" />
+        <SidebarPanelHeading className="shrink-0 h-14">
+          <HeaderWithIcon
+            icon="mynaui:layers-three"
+            title="Nodes in Flow"
+          />
         </SidebarPanelHeading>
 
         <div className="flex w-full  flex-col gap-1 p-1.5 overflow-y-auto">
@@ -74,7 +77,7 @@ export function NodePropertiesPanel() {
       </div>
 
       <div className="w-80 max-h-[360px] 2xl:max-h-[594px] flex flex-col">
-        <SidebarPanelHeading className="shrink-0">
+        <SidebarPanelHeading className="shrink-0 h-14">
           <HeaderWithIcon icon="mynaui:cog" title="Node Properties" />
         </SidebarPanelHeading>
 

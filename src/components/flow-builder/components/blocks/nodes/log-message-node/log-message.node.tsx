@@ -107,6 +107,7 @@ export const metadata: RegisterNodeMetadata<LogMessageNodeData> = {
     title: "Log Message",
     description:
       "Send a log message to the user using different messaging platforms like WhatsApp, Messenger, etc.",
+    gradientColor: "netural",
   },
   connection: {
     inputs: 1,

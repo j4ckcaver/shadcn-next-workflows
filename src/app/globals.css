@@ -99,20 +99,20 @@ body {
 
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  @apply bg-card-foreground/20 rounded-sm;
+  @apply bg-transparent ;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  @apply bg-card/50 rounded-sm;
+  @apply bg-card-foreground/10 ;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-card/60 rounded-sm;
+  @apply bg-card/60 ;
 }

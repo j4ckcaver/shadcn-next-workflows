@@ -143,7 +143,7 @@ export const FlowBuilder = () => {
 
   return (
     <>
-      <Card className=" h-14 border-0  from-primary/40 p-2 to-transparent rounded-none bg-gradient-to-r w-full  items-center flex justify-between border-b border-card-foreground/10">
+      <Card className=" h-14 border-0  from-primary/40 p-2 to-transparent rounded-none w-full  items-center flex justify-between border-b ">
         <div className="inline-flex items-center gap-2">
           <Button
             variant="ghost"
@@ -152,7 +152,7 @@ export const FlowBuilder = () => {
             onClick={() => router.back()}
           >
             <Icon
-              icon="ion:arrow-back-outline"
+              icon="mdi:chevron-left"
               className="size-6 text-card-foreground"
             />
           </Button>
@@ -163,6 +163,7 @@ export const FlowBuilder = () => {
           <ModeToggle />
           <SaveFlowButton />
         </div>}
+
       </Card>
       <div className="relative w-full h-[94vh]">
         <FlowContextMenu>
