@@ -4,10 +4,7 @@ import Header from "@/components/shared/header/header";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/ui/button-theme-toggle";
 import { Card } from "@/components/ui/card";
-import {
-  CardWorkflow,
-  CardWorkflowSkeleton,
-} from "@/components/ui/card-workflow";
+import { CardWorkflow } from "@/components/ui/card-workflow";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getWorkflows } from "@/services/get-workflows";
 
@@ -44,7 +41,7 @@ export default function Home() {
               <CardWorkflow key={workflow.id} workflow={workflow} />
             ))
           ) : (
-            <CardWorkflowSkeleton />
+            <p>loading..</p> //TODO add loading 
           )}
         </div>
         {/* Spacer */}
