@@ -16,6 +16,7 @@ interface DynamicModalProps {
   title: string;
   children: React.ReactNode;
   footer?: React.ReactNode;
+  titleIsShown?: boolean;
   size?: "sm" | "md" | "lg" | "xl" | "full";
 }
 
@@ -26,6 +27,7 @@ export const DynamicModal: React.FC<DynamicModalProps> = ({
   children,
   footer,
   size = "md",
+  titleIsShown = true,
 }) => {
   // Size classes based on the size prop
   const sizeClasses = {
@@ -41,11 +43,15 @@ export const DynamicModal: React.FC<DynamicModalProps> = ({
       <DialogContent
         className={`${sizeClasses[size]} bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 p-0 overflow-hidden border border-neutral-200 dark:border-neutral-700`}
       >
-        <DialogHeader className="px-4 py-3 border-b border-neutral-200 dark:border-neutral-700">
-          <DialogTitle className="text-lg font-bold">{title}</DialogTitle>
-        </DialogHeader>
+        <div className="max-h-[70vh] overflow-y-auto">
+          {titleIsShown && (
+            <div className="px-4 py-3 border-b border-neutral-200 dark:border-neutral-700">
+              <p className="text-lg font-bold">{title}</p>
+            </div>
+          )}
 
-        <div className="px-4 py-4 max-h-[70vh] overflow-y-auto">{children}</div>
+          {children}
+        </div>
 
         {footer && (
           <DialogFooter className="px-4 py-3 bg-neutral-100 dark:bg-neutral-800 border-t border-neutral-200 dark:border-neutral-700">

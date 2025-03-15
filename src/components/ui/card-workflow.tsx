@@ -338,7 +338,7 @@ export const CardWorkflow = ({ workflow }: any) => {
         </div>
 
         {/* Action footer */}
-        <div className="flex justify-between items-center p-3 bg-neutral-100 dark:bg-neutral-800 border-t border-neutral-200 dark:border-neutral-700">
+        <div className="flex justify-between items-center p-3 bg-white dark:bg-neutral-900  ">
           {/* Last update and execution history */}
           <div className="text-xs text-neutral-700 dark:text-neutral-400">
             <span>Updated: </span>

@@ -108,8 +108,8 @@ export interface IFlowState {
     executionHistory?: Array<{
       id: string;
       startTime: string;
-      endTime: string;
-      status: "success" | "failure" | "cancelled";
+      endTime: string | null;
+      status: "in-progress" | "success" | "failure" | "cancelled";
       error?: string;
     }>;
 

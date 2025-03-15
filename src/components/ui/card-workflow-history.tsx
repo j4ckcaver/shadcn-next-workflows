@@ -8,9 +8,9 @@ import { DynamicModal } from "../shared/modal/modal";
 
 interface ExecutionHistoryItem {
   id: string;
-  status: "success" | "failure" | "running" | string;
+  status: "success" | "failure" | "running" | "in-progress" | string;
   startTime: string;
-  endTime: string;
+  endTime: string | null;
   error?: string;
   actions?: string[];
   details?: Record<string, any>;
@@ -32,43 +32,10 @@ export const WorkflowHistoryModal: React.FC<WorkflowHistoryModalProps> = ({
   const [selectedExecution, setSelectedExecution] =
     React.useState<ExecutionHistoryItem | null>(null);
 
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case "success":
-        return (
-          <Icon
-            icon="mynaui:check"
-            className="size-5 text-green-600 dark:text-green-400"
-          />
-        );
-      case "failure":
-        return (
-          <Icon
-            icon="mynaui:times"
-            className="size-5 text-red-600 dark:text-red-400"
-          />
-        );
-      case "running":
-        return (
-          <Icon
-            icon="mynaui:refresh"
-            className="size-5 text-blue-600 dark:text-blue-400 animate-spin"
-          />
-        );
-      default:
-        return (
-          <Icon
-            icon="mynaui:information"
-            className="size-5 text-neutral-600 dark:text-neutral-400"
-          />
-        );
-    }
-  };
-
   const getStatusBadge = (status: string) => {
     let bgColor, textColor, icon;
 
-    switch (status) {
+    switch (status.toLowerCase()) {
       case "success":
         bgColor = "bg-green-100 dark:bg-green-900/30";
         textColor = "text-green-700 dark:text-green-400";
@@ -80,6 +47,7 @@ export const WorkflowHistoryModal: React.FC<WorkflowHistoryModalProps> = ({
         icon = "mynaui:times";
         break;
       case "running":
+      case "in-progress":
         bgColor = "bg-blue-100 dark:bg-blue-900/30";
         textColor = "text-blue-700 dark:text-blue-400";
         icon = "mynaui:refresh";
@@ -104,6 +72,37 @@ export const WorkflowHistoryModal: React.FC<WorkflowHistoryModalProps> = ({
 
   const handleDetailsClick = (execution: ExecutionHistoryItem) => {
     setSelectedExecution(execution === selectedExecution ? null : execution);
+  };
+
+  // Function to format duration based on start and end time
+  const formatDuration = (startTime: string, endTime: string | null) => {
+    const start = new Date(startTime);
+
+    // If endTime is null (still running), use current time
+    const end = endTime ? new Date(endTime) : new Date();
+
+    const durationMs = end.getTime() - start.getTime();
+    const durationSec = Math.floor(durationMs / 1000);
+    const durationMin = Math.floor(durationSec / 60);
+    const durationHours = Math.floor(durationMin / 60);
+
+    let durationText = "";
+    if (durationHours > 0) {
+      durationText = `${durationHours}h ${durationMin % 60}m ${
+        durationSec % 60
+      }s`;
+    } else if (durationMin > 0) {
+      durationText = `${durationMin}m ${durationSec % 60}s`;
+    } else {
+      durationText = `${durationSec}s`;
+    }
+
+    // Add indicator if still running
+    if (!endTime) {
+      durationText += " (running)";
+    }
+
+    return durationText;
   };
 
   return (
@@ -138,22 +137,11 @@ export const WorkflowHistoryModal: React.FC<WorkflowHistoryModalProps> = ({
             <tbody className="divide-y divide-neutral-200 dark:divide-neutral-700">
               {executionHistory.map((execution) => {
                 const startTime = new Date(execution.startTime);
-                const endTime = new Date(execution.endTime);
-                const durationMs = endTime.getTime() - startTime.getTime();
-                const durationSec = Math.floor(durationMs / 1000);
-                const durationMin = Math.floor(durationSec / 60);
-                const durationHours = Math.floor(durationMin / 60);
-
-                let durationText = "";
-                if (durationHours > 0) {
-                  durationText = `${durationHours}h ${durationMin % 60}m ${
-                    durationSec % 60
-                  }s`;
-                } else if (durationMin > 0) {
-                  durationText = `${durationMin}m ${durationSec % 60}s`;
-                } else {
-                  durationText = `${durationSec}s`;
-                }
+                const isRunning = !execution.endTime;
+                const durationText = formatDuration(
+                  execution.startTime,
+                  execution.endTime
+                );
 
                 const isSelected = selectedExecution?.id === execution.id;
 
@@ -172,7 +160,16 @@ export const WorkflowHistoryModal: React.FC<WorkflowHistoryModalProps> = ({
                         {format(startTime, "MMM dd, yyyy HH:mm:ss")}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-700 dark:text-neutral-300">
-                        {format(endTime, "MMM dd, yyyy HH:mm:ss")}
+                        {isRunning ? (
+                          <span className="italic text-blue-600 dark:text-blue-400">
+                            In Progress
+                          </span>
+                        ) : (
+                          format(
+                            new Date(execution.endTime!),
+                            "MMM dd, yyyy HH:mm:ss"
+                          )
+                        )}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-700 dark:text-neutral-300">
                         {durationText}
@@ -239,9 +236,15 @@ export const WorkflowHistoryModal: React.FC<WorkflowHistoryModalProps> = ({
                                         End Time
                                       </span>
                                       <p className="text-sm text-neutral-800 dark:text-neutral-200">
-                                        {format(
-                                          endTime,
-                                          "MMM dd, yyyy HH:mm:ss"
+                                        {isRunning ? (
+                                          <span className="italic text-blue-600 dark:text-blue-400">
+                                            In Progress
+                                          </span>
+                                        ) : (
+                                          format(
+                                            new Date(execution.endTime!),
+                                            "MMM dd, yyyy HH:mm:ss"
+                                          )
                                         )}
                                       </p>
                                     </div>
